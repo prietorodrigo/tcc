@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+</head>
+<body>
+<h2>Editar Usuário</h2>
+<form th:action="@{/editarUser/{id}(id=${user.id})}" method="post" enctype="multipart/form-data" th:object="${user}">
+    <label>Nome:</label>
+    <input id="firstName" name="firstName" type="text" th:value="*{firstName}"/>
+    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+    <br/>
+    <label>Sobrenomes:</label>
+    <input id="lastName" name="lastName" type="text" th:value="*{lastName}"/>
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+    <br/>
+    <label>E-mail:</label>
+    <input id="email" name="email" type="email" th:value="*{email}"/>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    <br/>
+    <label>Foto:</label>
+    <input id="file" name="file" type="file" multiple/>
+    <br/>
+    <label>Matrícula:</label>
+    <input id="matricula" name="matricula" type="text" th:value="*{matricula}"/>
+    <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}"></span>
+    <br/>
+    <label>SIAPE:</label>
+    <input id="siape" name="siape" type="text" th:value="*{siape}"/>
+    <span th:if="${#fields.hasErrors('siape')}" th:errors="*{siape}"></span>
+    <br/>
+    <label>Tipo de Usuário:</label>
+    <select id="roleName" name="roleName">
+        <option value="ROLE_ESTUDIANTE" th:selected="${user.roleName == 'ROLE_ESTUDIANTE'}">Estudiante</option>
+        <option value="ROLE_ORIENTADOR" th:selected="${user.roleName == 'ROLE_ORIENTADOR'}">Orientador</option>
+        <option value="ROLE_ADMIN" th:selected="${user.roleName == 'ROLE_ADMIN'}">Administrador</option>
+    </select>
+    <br/>
+    <button type="submit">Editar</button>
+</form>
+</body>
+</html>

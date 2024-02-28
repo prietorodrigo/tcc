@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+</head>
+<body>
+    <div role="alert" th:if="${not #strings.isEmpty(erro)}">
+        <span th:text="${erro}"></span>
+    </div>
+    <div role="alert" th:if="${not #strings.isEmpty(sucesso)}">
+        <span th:text="${sucesso}"></span>
+    </div>
+</body>
+</html>

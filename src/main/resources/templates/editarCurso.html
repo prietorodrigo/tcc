@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Curso</title>
+</head>
+<body>
+    <h2>Editar Curso</h2>
+    <th:block th:include="mensagens"></th:block>
+    <form method="post">
+        <label>Nome:</label>
+        <input type="text" id="nome" name="nome" th:value="${nome}">
+        <button type="submit">Editar</button>
+    </form>
+</body>
+</html>

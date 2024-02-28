@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Página principal</title>
+</head>
+<body>
+   <nav>
+       <a th:href="@{/index}">Sistema de Gestão de Produção Científica</a>
+       <ul>
+           <li>
+               <a aria-current="page" th:href="@{/register}">Cadastrar usuário</a>
+           </li>
+           <li>
+               <a aria-current="page" th:href="@{/login}">Login</a>
+           </li>
+       </ul>
+   </nav>
+   <br /><br />
+   <h1>Bem-vindo ao Sistema de Gestão da Produção Científica</h1>
+</body>
+</html>

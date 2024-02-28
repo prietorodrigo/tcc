@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários cadastrados</title>
+</head>
+<body>
+<nav>
+    <a href="#">Sistema de Gestão de Produção Científica</a>
+    <ul>
+        <li>
+            <a aria-current="page" th:href="@{/register}">Cadastrar usuário</a>
+        </li>
+        <li>
+            <a aria-current="page" th:href="@{/logout}">Logout</a>
+        </li>
+    </ul>
+</nav>
+<h1>Usuários cadastrados</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nomes</th>
+        <th>Sobrenomes</th>
+        <th>E-mail</th>
+        <th>Rol</th>
+        <th>Foto</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${users}">
+        <th th:text="${user.id}"></th>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.roleName}"></td>
+        <td><img th:src="@{/foto/{foto}(foto=${user.foto})}" width="50px"/></td>
+        <td><a th:href="@{/editarUser/{id} (id=${user.id})}">Editar</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

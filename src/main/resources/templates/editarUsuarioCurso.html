@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário-Curso</title>
+</head>
+<body>
+    <h2>Editar Usuário-Curso</h2>
+    <form th:action="@{/editarUsuarioCurso/{id}(id=${usuarioCurso.id})}" method="post" th:object="${usuarioCurso}">
+        <label for="usuario">Usuario:</label>
+        <select name="usuario" id="usuario">
+            <option value="">Selecione um Usuário</option>
+            <option th:each="usr : ${usuario}"
+                    th:value="${usr.id}"
+                    th:text="${usr.name}"
+                    th:selected="${usr.id == usuarioCurso.usuario.id}"></option>
+        </select>
+        <br>
+        <label for="curso">Curso:</label>
+        <select name="curso" id="curso">
+            <option value="">Selecione um curso</option>
+            <option th:each="crs : ${curso}"
+                    th:value="${crs.id}"
+                    th:text="${crs.nome}"
+                    th:selected="${crs.id == usuarioCurso.curso.id}"></option>
+        </select>
+        <br>
+        <label for="ano">Ano:</label>
+        <select id="ano" name="ano">
+            <option th:each="year : ${#numbers.sequence(2006, 2100)}"
+                    th:value="${year}"
+                    th:text="${year}"
+                    th:selected="${year == usuarioCurso.ano}"></option>
+        </select>
+        <br>
+        <label for="semestre">Semestre:</label>
+        <select id="semestre" name="semestre">
+            <option value="1" th:selected="${usuarioCurso.semestre == 1}">1</option>
+            <option value="2" th:selected="${usuarioCurso.semestre == 2}">2</option>
+        </select>
+        <br>
+        <button type="submit">Editar</button>
+    </form>
+</body>
+</html>

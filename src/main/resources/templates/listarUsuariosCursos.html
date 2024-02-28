@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuario-Cursos</title>
+</head>
+<body>
+    <h1>Lista de Usuario-Cursos</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Curso</th>
+            <th>Ano</th>
+            <th>Semestre</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuarioCurso : ${usuariosCursos}">
+                <td th:text="${usuarioCurso.usuario.name}"></td>
+                <td th:text="${usuarioCurso.curso.nome}"></td>
+                <td th:text="${usuarioCurso.ano}"></td>
+                <td th:text="${usuarioCurso.semestre}"></td>
+                <td><a th:href="@{/editarUsuarioCurso/{id} (id=${usuarioCurso.id})}">Editar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

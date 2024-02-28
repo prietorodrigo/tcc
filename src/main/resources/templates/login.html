@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/index}">Sistema de Gestão de Produção Científica</a>
+        <ul>
+            <li>
+                <a aria-current="page" th:href="@{/register}">Cadastrar usuário</a>
+            </li>
+        </ul>
+    </nav>
+    <br /><br />
+    <div th:if="${param.error}">
+        <div>E-mail ou senha inválida</div>
+    </div>
+    <div th:if="${param.logout}">
+        <div>Você foi desconectado.</div>
+    </div>
+    <h2>Formulário de Login</h2>
+    <form method="post" role="form" th:action="@{/login}">
+        <label>E-mail</label>
+        <input type="text" id="username" name="username" placeholder="Digite o endereço de e-mail"/>
+        <label>Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite a senha"/>
+        <button type="submit">Login</button>
+        <span> Não registrado?
+            <a th:href="@{/register}">Cadastre-se aqui</a>
+        </span>
+    </form>
+</body>
+</html>

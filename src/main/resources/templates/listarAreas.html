@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Áreas</title>
+</head>
+<body>
+<h2>Lista de Áreas</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="area : ${areas}">
+        <th th:text = ${area.id}></th>
+        <td th:text = ${area.nome}></td>
+        <td><a th:href="@{/editarArea/{id} (id=${area.id})}">Editar</a></td>
+        <td><a th:href="@{/excluirArea/{id} (id=${area.id})}" onclick="return confirm('Tem certeza que deseja excluir esta área?');">Excluir</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

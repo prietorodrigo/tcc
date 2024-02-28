@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de usuário</title>
+</head>
+<body>
+    <nav th:fragment="header">
+        <a th:href="@{/}">Sistema de Gestão de Produção Científica</a>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <div th:if="${param.success}">
+        Cadastro feito com sucesso
+    </div>
+    <h2>Cadastro de usuário</h2>
+    <form method="post" role="form" th:action="@{/register/save}" th:object="${user}" enctype="multipart/form-data">
+        <label>Nomes:</label>
+        <input id="firstName" name="firstName" placeholder="Digite os nomes" th:field="*{firstName}" type="text"/>
+        <p th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></p>
+
+        <label>Sobrenomes:</label>
+        <input id="lastName" name="lastName" placeholder="Digite os sobrenomes" th:field="*{lastName}" type="text"/>
+        <p th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></p>
+
+        <label>E-mail:</label>
+        <input id="email" name="email" placeholder="Digite o endereço de e-mail" th:field="*{email}" type="email"/>
+        <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
+
+        <label>Senha:</label>
+        <input id="password" name="password" placeholder="Digite a senha" th:field="*{password}" type="password"/>
+        <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+
+        <label>Foto:</label>
+        <input id="file" name="file" type="file" multiple/>
+        <p th:errors="*{foto}" th:if="${#fields.hasErrors('foto')}"></p>
+
+        <label>Matrícula:</label>
+        <input id="matricula" name="matricula" placeholder="Digite a matrícula" th:field="*{matricula}" type="text"/>
+        <p th:errors="*{matricula}" th:if="${#fields.hasErrors('matricula')}"></p>
+
+        <label>SIAPE:</label>
+        <input id="siape" name="siape" placeholder="Digite o SIAPE" th:field="*{siape}" type="text"/>
+        <p th:errors="*{siape}" th:if="${#fields.hasErrors('siape')}"></p>
+
+        <label>Tipo de Usuário:</label>
+        <select id="roleName" name="roleName" th:field="*{roleName}">
+            <option value="ADMIN">Administrador</option>
+            <option value="ESTUDIANTE">Estudiante</option>
+            <option value="ORIENTADOR">Orientador</option>
+            <!-- Otros roles si es necesario -->
+        </select>
+
+        <button type="submit">Cadastrar</button>
+        <span>Já cadastrado? <a href="/" th:href="@{/login}">Entre aqui</a></span>
+    </form>
+</body>
+</html>
