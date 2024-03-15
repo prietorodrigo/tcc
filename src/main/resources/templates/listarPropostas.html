@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Propostas</title>
+</head>
+<body>
+    <h1>Lista de Propostas</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Estudante</th>
+            <th>Orientador</th>
+            <th>Curso</th>
+            <th>Área</th>
+            <th>Tema</th>
+            <th>Descrição</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="proposta : ${propostas}">
+            <td th:text="${proposta.data}"></td>
+            <td th:text="${proposta.estudante.name}"></td>
+            <td th:text="${proposta.orientador.name}"></td>
+            <td th:text="${proposta.curso.nome}"></td>
+            <td th:text="${proposta.area.nome}"></td>
+            <td th:text="${proposta.tema}"></td>
+            <td th:text="${proposta.descricao}"></td>
+            <td><a th:href="@{/editarProposta/{id} (id=${proposta.id})}">Editar</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

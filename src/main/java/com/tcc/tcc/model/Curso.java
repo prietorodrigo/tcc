@@ -20,10 +20,7 @@ public class Curso {
     private List<UsuarioCurso> usuarioCursos = new ArrayList<>();
 
     @OneToMany(mappedBy = "curso")
-    private List<TermoCompromisso> termosCompromisso = new ArrayList<>();
-
-    @ManyToMany(mappedBy="curso")
-    private List<ProducaoCientifica> producaoCientificas;
+    private List<Proposta> propostas = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -49,19 +46,11 @@ public class Curso {
         this.usuarioCursos = usuarioCursos;
     }
 
-    public List<TermoCompromisso> getTermosCompromisso() {
-        return termosCompromisso;
+    public List<Proposta> getPropostas() {
+        return propostas;
     }
 
-    public void setTermosCompromisso(List<TermoCompromisso> termosCompromisso) {
-        this.termosCompromisso = termosCompromisso;
-    }
-
-    public List<ProducaoCientifica> getProducaoCientificas() {
-        return producaoCientificas;
-    }
-
-    public void setProducaoCientificas(List<ProducaoCientifica> producaoCientificas) {
-        this.producaoCientificas = producaoCientificas;
+    public void setPropostas(List<Proposta> propostas) {
+        this.propostas = propostas;
     }
 }

@@ -20,6 +20,11 @@ public class ProducaoCientifica {
     private int ano;
 
     @NotBlank
+    private String tipo;
+
+    private String coorientador;
+
+    @NotBlank
     @Lob
     private String resumo;
 
@@ -32,19 +37,9 @@ public class ProducaoCientifica {
     @Lob
     private String palavrasChaves;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            name="prodcientifica_proposta",
-            joinColumns={@JoinColumn(name="prodcientifica_id", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="proposta_id", referencedColumnName="ID")})
-    private List<Proposta> proposta = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            name="prodcientifica_curso",
-            joinColumns={@JoinColumn(name="prodcientifica_id", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="curso_id", referencedColumnName="ID")})
-    private List<Curso> curso = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name="proposta_id")
+    private Proposta proposta;
 
     public long getId() {
         return id;
@@ -68,6 +63,22 @@ public class ProducaoCientifica {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getCoorientador() {
+        return coorientador;
+    }
+
+    public void setCoorientador(String coorientador) {
+        this.coorientador = coorientador;
     }
 
     public String getResumo() {
@@ -102,19 +113,11 @@ public class ProducaoCientifica {
         this.palavrasChaves = palavrasChaves;
     }
 
-    public List<Proposta> getProposta() {
+    public Proposta getProposta() {
         return proposta;
     }
 
-    public void setPropostas(List<Proposta> proposta) {
+    public void setProposta(Proposta proposta) {
         this.proposta = proposta;
-    }
-
-    public List<Curso> getCurso() {
-        return curso;
-    }
-
-    public void setCursos(List<Curso> curso) {
-        this.curso = curso;
     }
 }

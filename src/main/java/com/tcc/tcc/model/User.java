@@ -40,8 +40,12 @@ public class User {
     @OneToMany(mappedBy = "usuario")
     private List<UsuarioCurso> usuarioCursos = new ArrayList<>();
 
-    @ManyToMany(mappedBy="users")
-    private List<TermoCompromisso> termosCompromisso;
+    @OneToMany(mappedBy="estudante")
+    private List<Proposta> propostasestudante;
+
+    @OneToMany(mappedBy="orientador")
+    private List<Proposta> propostasorientador;
+
 
     public Long getId() {
         return id;
@@ -115,11 +119,19 @@ public class User {
         this.usuarioCursos = usuarioCursos;
     }
 
-    public List<TermoCompromisso> getTermosCompromisso() {
-        return termosCompromisso;
+    public List<Proposta> getPropostasestudante() {
+        return propostasestudante;
     }
 
-    public void setTermosCompromisso(List<TermoCompromisso> termosCompromisso) {
-        this.termosCompromisso = termosCompromisso;
+    public void setPropostasestudante(List<Proposta> propostasestudante) {
+        this.propostasestudante = propostasestudante;
+    }
+
+    public List<Proposta> getPropostasorientador() {
+        return propostasorientador;
+    }
+
+    public void setPropostasorientador(List<Proposta> propostasorientador) {
+        this.propostasorientador = propostasorientador;
     }
 }

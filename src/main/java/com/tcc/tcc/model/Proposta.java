@@ -1,8 +1,11 @@
 package com.tcc.tcc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,6 +14,9 @@ public class Proposta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate data;
 
     @NotBlank
     private String tema;
@@ -23,8 +29,20 @@ public class Proposta {
     @JoinColumn(name = "area_id")
     private Area area;
 
-    @ManyToMany(mappedBy="proposta")
-    private List<ProducaoCientifica> producaoCientificas;
+    @OneToOne(mappedBy="proposta", cascade = CascadeType.ALL)
+    private ProducaoCientifica producaoCientifica;
+
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    private Curso curso;
+
+    @ManyToOne
+    @JoinColumn(name = "estudante_id")
+    private User estudante;
+
+    @ManyToOne
+    @JoinColumn(name = "orientador_id")
+    private User orientador;
 
     public long getId() {
         return id;
@@ -58,11 +76,43 @@ public class Proposta {
         this.area = area;
     }
 
-    public List<ProducaoCientifica> getProducaoCientificas() {
-        return producaoCientificas;
+    public ProducaoCientifica getProducaoCientifica() {
+        return producaoCientifica;
     }
 
-    public void setProducaoCientificas(List<ProducaoCientifica> producaoCientificas) {
-        this.producaoCientificas = producaoCientificas;
+    public void setProducaoCientifica(ProducaoCientifica producaoCientifica) {
+        this.producaoCientifica = producaoCientifica;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public User getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(User estudante) {
+        this.estudante = estudante;
+    }
+
+    public User getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(User orientador) {
+        this.orientador = orientador;
     }
 }
