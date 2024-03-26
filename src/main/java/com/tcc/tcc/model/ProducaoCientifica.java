@@ -13,10 +13,8 @@ public class ProducaoCientifica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
     private int semestre;
 
-    @NotBlank
     private int ano;
 
     @NotBlank

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Produção Científica</title>
+</head>
+<body>
+    <h2>Editar Produção Científica</h2>
+    <form method="post">
+        <label for="ano">Ano:</label>
+        <select id="ano" name="ano">
+            <option th:each="year : ${#numbers.sequence(2006, 2100)}"
+                    th:value="${year}"
+                    th:text="${year}"
+                    th:selected="${year == ano}"></option>
+        </select>
+        <br>
+        <label for="semestre">Semestre:</label>
+        <select id="semestre" name="semestre">
+            <option value="1" th:selected="${semestre == 1}">1</option>
+            <option value="2" th:selected="${semestre == 2}">2</option>
+        </select>
+        <br>
+        <label for="tipo">Gênero acadêmico-científico:</label>
+        <select id="tipo" name="tipo">
+            <option value="artigo" th:selected="${tipo eq 'artigo'}">Artigo científico</option>
+            <option value="dissertacao" th:selected="${tipo eq 'dissertacao'}">Dissertação</option>
+            <option value="ensaio" th:selected="${tipo eq 'ensaio'}">Ensaio</option>
+            <option value="fichamento" th:selected="${tipo eq 'fichamento'}">Fichamento</option>
+            <option value="monografia" th:selected="${tipo eq 'monografia'}">Monografia</option>
+            <option value="projeto" th:selected="${tipo eq 'projeto'}">Projeto de pesquisa</option>
+            <option value="relatorio" th:selected="${tipo eq 'relatorio'}">Relatório</option>
+            <option value="resenha" th:selected="${tipo eq 'resenha'}">Resenha</option>
+            <option value="resumo" th:selected="${tipo eq 'resumo'}">Resumo</option>
+            <option value="tese" th:selected="${tipo eq 'tese'}">Tese</option>
+        </select>
+        <br>
+        <label for="coorientador">Coorientador:</label>
+        <input type="text" id="coorientador" name="coorientador" th:value="${coorientador}">
+        <br>
+        <label for="resumo">Resumo</label>
+        <textarea id="resumo" name="resumo" th:text="${resumo}"></textarea>
+        <br>
+        <label for="apresentacoes">Apresentações:</label>
+        <textarea id="apresentacoes" name="apresentacoes" th:text="${apresentacoes}"></textarea>
+        <br>
+        <label>Palavras chaves:</label>
+        <input type="hidden" id="palavrasChaves" name="palavrasChaves">
+        <th:block th:each="palavra, iterStat : ${palavrasChavesList}">
+            <input type="text" th:id="'palavraChave' + ${iterStat.index + 1}" th:name="'palavraChave' + ${iterStat.index + 1}" th:value="${palavra}">
+        </th:block>
+
+        <button type="submit" onclick="concatenateKeywords()">Editar</button>
+    </form>
+    <script>
+              function concatenateKeywords() {
+              const palavraChave1 = document.getElementById("palavraChave1").value;
+              const palavraChave2 = document.getElementById("palavraChave2").value;
+              const palavraChave3 = document.getElementById("palavraChave3").value;
+              const palavraChave4 = document.getElementById("palavraChave4").value;
+              const palavraChave5 = document.getElementById("palavraChave5").value;
+              const palavrasChavesConcatenadas = palavraChave1 + " - " + palavraChave2 + " - " + palavraChave3 + " - " + palavraChave4 + " - " + palavraChave5;
+              document.getElementById("palavrasChaves").value = palavrasChavesConcatenadas;
+        }
+    </script>
+</body>
+</html>

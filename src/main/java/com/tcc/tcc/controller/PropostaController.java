@@ -97,4 +97,10 @@ public class PropostaController {
         msg.addFlashAttribute("success", "Proposta atualizada com sucesso.");
         return "redirect:/listarPropostas";
     }
+
+    @RequestMapping(value="/excluirProposta/{id}", method=RequestMethod.GET)
+    public String excluirProposta(@PathVariable("id") Long id) {
+        propostaRepository.deleteById(id);
+        return "redirect:/listarPropostas";
+    }
 }

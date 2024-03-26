@@ -45,6 +45,9 @@ public class SpringSecurity {
                                 .requestMatchers("/novaProposta").hasRole("ADMIN")
                                 .requestMatchers("/listarPropostas").hasRole("ADMIN")
                                 .requestMatchers("/editarProposta/**").hasRole("ADMIN")
+                                .requestMatchers("/novaProducao/**").hasRole("ADMIN")
+                                .requestMatchers("/listarProducoes").hasRole("ADMIN")
+                                .requestMatchers("/editarProducao/**").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

@@ -22,6 +22,7 @@
                 <td th:text="${usuarioCurso.ano}"></td>
                 <td th:text="${usuarioCurso.semestre}"></td>
                 <td><a th:href="@{/editarUsuarioCurso/{id} (id=${usuarioCurso.id})}">Editar</a></td>
+                <td><a th:href="@{/excluirUsuarioCurso/{id} (id=${usuarioCurso.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Inscrição?');">Excluir</a></td>
             </tr>
         </tbody>
     </table>

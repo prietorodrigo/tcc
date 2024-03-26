@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
 
             // Asigna roles al usuario según su tipo
             if (userDto.getRoleName().equals("ESTUDIANTE")) {
-                user.setRoles(Arrays.asList(roleEstudiante, roleAdmin));
+                user.setRoles(Arrays.asList(roleEstudiante));
             } else if (userDto.getRoleName().equals("ORIENTADOR")) {
-                user.setRoles(Arrays.asList(roleOrientador, roleAdmin));
+                user.setRoles(Arrays.asList(roleOrientador));
             } else {
                 user.setRoles(Arrays.asList(roleAdmin));
             }
@@ -88,14 +88,12 @@ public class UserServiceImpl implements UserService {
             List<Role> roles = new ArrayList<>();
 
             // Asignar roles al usuario según su tipo
-            if ("ROLE_ESTUDIANTE".equals(userDto.getRoleName())) {
-                roles.add(getRoleIfExists(roleEstudiante));
-                roles.add(getRoleIfExists(roleAdmin));
-            } else if ("ROLE_ORIENTADOR".equals(userDto.getRoleName())) {
-                roles.add(getRoleIfExists(roleOrientador));
-                roles.add(getRoleIfExists(roleAdmin));
+            if (userDto.getRoleName().equals("ESTUDIANTE")) {
+                user.setRoles(Arrays.asList(roleEstudiante));
+            } else if (userDto.getRoleName().equals("ORIENTADOR")) {
+                user.setRoles(Arrays.asList(roleOrientador));
             } else {
-                roles.add(getRoleIfExists(roleAdmin));
+                user.setRoles(Arrays.asList(roleAdmin));
             }
 
             // Verificar si se proporciona una nueva contraseña

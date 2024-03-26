@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produção Científica</title>
+</head>
+<body>
+    <h2>Cadastro de Produção Científica</h2>
+    <form method="post">
+        <label for="ano">Ano:</label>
+        <select id="ano" name="ano"></select>
+            <script>
+                // Obtener el año actual
+                var ano_actual = new Date().getFullYear();
+
+                // Obtener el elemento select
+                var select_ano = document.getElementById("ano");
+
+                // Agregar opciones de años desde 2006 hasta 2100
+                for (var ano = 2006; ano <= 2100; ano++) {
+                    // Crear una nueva opción
+                    var opcion = document.createElement("option");
+                    opcion.text = ano;
+                    opcion.value = ano;
+
+                    // Si es el año actual, seleccionarlo por defecto
+                    if (ano === ano_actual) {
+                        opcion.selected = true;
+                    }
+
+                    // Agregar la opción al select
+                    select_ano.add(opcion);
+                }
+            </script>
+        <br>
+        <label for="semestre">Semestre:</label>
+        <select id="semestre" name="semestre">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <br>
+        <label for="tipo">Gênero acadêmico-científico:</label>
+        <select id="tipo" name="tipo">
+            <option value="artigo">Artigo científico</option>
+            <option value="dissertacao">Dissertação</option>
+            <option value="ensaio">Ensaio</option>
+            <option value="fichamento">Fichamento</option>
+            <option value="monografia">Monografia</option>
+            <option value="projeto">Projeto de pesquisa</option>
+            <option value="relatorio">Relatório</option>
+            <option value="resenha">Resenha</option>
+            <option value="resumo">Resumo</option>
+            <option value="tese">Tese</option>
+        </select>
+        <br>
+        <label for="coorientador">Coorientador:</label>
+        <input type="text" id="coorientador" name="coorientador" placeholder="Digite o nome do coorientador">
+        <br>
+        <label for="resumo">Resumo</label>
+        <textarea id="resumo" name="resumo" placeholder="Digite o resumo da produção científica"></textarea>
+        <br>
+        <label for="apresentacoes">Apresentações:</label>
+        <textarea id="apresentacoes" name="apresentacoes" placeholder="Digite as apresentações acadêmicas relacionadas com a produção científica"></textarea>
+        <br>
+        <label for="palavrasChaves">Palavras chaves:</label>
+        <input type="hidden" id="palavrasChaves" name="palavrasChaves">
+        <br>
+        <label for="palavraChave1">Palavra chave 1:</label>
+        <input type="text" id="palavraChave1" name="palavraChave1">
+        <label for="palavraChave2">Palavra chave 2:</label>
+        <input type="text" id="palavraChave2" name="palavraChave2">
+        <label for="palavraChave3">Palavra chave 3:</label>
+        <input type="text" id="palavraChave3" name="palavraChave3">
+        <label for="palavraChave4">Palavra chave 4:</label>
+        <input type="text" id="palavraChave4" name="palavraChave4">
+        <label for="palavraChave5">Palavra chave 5:</label>
+        <input type="text" id="palavraChave5" name="palavraChave5">
+        <script>
+            function concatenateKeywords() {
+              const palavraChave1 = document.getElementById("palavraChave1").value;
+              const palavraChave2 = document.getElementById("palavraChave2").value;
+              const palavraChave3 = document.getElementById("palavraChave3").value;
+              const palavraChave4 = document.getElementById("palavraChave4").value;
+              const palavraChave5 = document.getElementById("palavraChave5").value;
+              const palavrasChavesConcatenadas = palavraChave1 + " - " + palavraChave2 + " - " + palavraChave3 + " - " + palavraChave4 + " - " + palavraChave5;
+              document.getElementById("palavrasChaves").value = palavrasChavesConcatenadas;
+            }
+        </script>
+        <button type="submit" onclick="concatenateKeywords()">Enviar</button>
+    </form>
+</body>
+</html>

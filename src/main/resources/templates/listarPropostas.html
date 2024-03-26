@@ -28,6 +28,8 @@
             <td th:text="${proposta.tema}"></td>
             <td th:text="${proposta.descricao}"></td>
             <td><a th:href="@{/editarProposta/{id} (id=${proposta.id})}">Editar</a></td>
+            <td><a th:href="@{/excluirProposta/{id} (id=${proposta.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Proposta?');">Excluir</a></td>
+            <td><a th:href="@{/novaProducao/{id} (id=${proposta.id})}">Aprovar</a></td>
         </tr>
         </tbody>
     </table>

@@ -97,4 +97,10 @@ public class UsuarioCursoController {
         msg.addFlashAttribute("success", "UsuarioCurso atualizado com sucesso.");
         return "redirect:/listarUsuariosCursos";
     }
+
+    @RequestMapping(value="/excluirUsuarioCurso/{id}", method=RequestMethod.GET)
+    public String excluirUsuarioCurso(@PathVariable("id") Long id) {
+        usuarioCursoRepository.deleteById(id);
+        return "redirect:/listarUsuariosCursos";
+    }
 }
