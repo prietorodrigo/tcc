@@ -28,4 +28,9 @@ public class PropostaServiceImpl implements PropostaService {
     public Proposta save(Proposta proposta) {
         return propostaRepository.save(proposta);
     }
+
+    @Override
+    public List<Proposta> findPropostasLike(String texto) {
+        return propostaRepository.findPropostasLike(texto);
+    }
 }

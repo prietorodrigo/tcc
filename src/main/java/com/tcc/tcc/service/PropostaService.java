@@ -8,4 +8,5 @@ public interface PropostaService {
     List<Proposta> findAll();
     Proposta findById(long id);
     Proposta save(Proposta proposta);
+    List<Proposta> findPropostasLike(String texto);
 }

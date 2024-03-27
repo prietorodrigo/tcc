@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -102,5 +103,13 @@ public class PropostaController {
     public String excluirProposta(@PathVariable("id") Long id) {
         propostaRepository.deleteById(id);
         return "redirect:/listarPropostas";
+    }
+
+    @RequestMapping(value={"/pesquisar"}, method=RequestMethod.POST)
+    public ModelAndView getPropostasByTema(@RequestParam("texto") String pesquisar) {
+        ModelAndView mv = new ModelAndView("listarPropostas");
+        List<Proposta> propostas = propostaRepository.findPropostasLike("%"+pesquisar+"%");
+        mv.addObject("propostas", propostas);
+        return mv;
     }
 }

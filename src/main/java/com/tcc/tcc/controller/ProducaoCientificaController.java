@@ -101,4 +101,38 @@ public class ProducaoCientificaController {
         producaoCientificaRepository.deleteById(id);
         return "redirect:/listarProducoes";
     }
+
+    @RequestMapping(value="/vermaisProducao/{id}", method=RequestMethod.GET)
+    public ModelAndView vermaisProducao(@PathVariable("id") Long id) {
+        ModelAndView mv = new ModelAndView("vermaisProducao");
+        Optional<ProducaoCientifica> producaoOpt = producaoCientificaRepository.findById(id);
+        mv.addObject("semestre", producaoOpt.get().getSemestre());
+        mv.addObject("ano", producaoOpt.get().getAno());
+        mv.addObject("tipo", producaoOpt.get().getTipo());
+        mv.addObject("coorientador", producaoOpt.get().getCoorientador());
+        mv.addObject("resumo", producaoOpt.get().getResumo());
+        mv.addObject("apresentacoes", producaoOpt.get().getApresentacoes());
+        mv.addObject("palavrasChaves", producaoOpt.get().getPalavrasChaves());
+        if (producaoOpt.isPresent()) {
+            ProducaoCientifica producao = producaoOpt.get();
+            mv.addObject("producao", producao);
+
+            // Obtener la Proposta asociada a la ProducaoCientifica
+            Proposta proposta = producao.getProposta();
+            if (proposta != null) {
+                mv.addObject("proposta", proposta);
+            } else {
+                // Manejar el caso donde no hay Proposta asociada
+                mv.addObject("proposta", null);
+            }
+        } else {
+            // Manejar el caso donde no se encuentra la ProducaoCientifica
+            // Aquí podrías redirigir a una página de error o manejarlo de otra manera
+            // Por ejemplo:
+            // mv.setViewName("error");
+            // mv.addObject("message", "La ProducaoCientifica con el ID " + id + " no fue encontrada.");
+        }
+
+        return mv;
+    }
 }
