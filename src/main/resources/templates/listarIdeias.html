@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ideias</title>
+</head>
+<body>
+    <h2>Lista de Ideias</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Tema</th>
+            <th>Descrição</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ideia : ${ideias}">
+            <th th:text = ${ideia.id}></th>
+            <td th:text = ${ideia.data}></td>
+            <td th:text = ${ideia.tema}></td>
+            <td th:text = ${ideia.descricao}></td>
+            <td><a th:href="@{/editarIdeia/{id} (id=${ideia.id})}">Editar</a></td>
+            <td><a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');">Excluir</a></td>
+            <td><a th:href="@{/novaPropostaIdeia/{id} (id=${ideia.id})}">Reservar</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -23,23 +23,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class AuthController {
 
     private UserService userService;
 
-    @Autowired
-    RoleRepository roleRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    RoleRepository roleRepository;
 
     public AuthController(UserService userService) {
         this.userService = userService;
     }
 
-    // método manipulador para lidar com a solicitação da página inicial
     @GetMapping("index")
     public String home(){
         return "index";
@@ -50,16 +50,15 @@ public class AuthController {
         return "login";
     }
 
-    // método manipulador para lidar com a solicitação do formulário de registro do usuário
+    // handler method to handle user registration request
     @GetMapping("register")
     public String showRegistrationForm(Model model){
-        // cria um objeto modelo para armazenar dados do formulário
         UserDto user = new UserDto();
         model.addAttribute("user", user);
         return "register";
     }
 
-    // método manipulador para lidar com solicitação de envio de formulário de usuário de registro
+    // handler method to handle register user form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto user,
                                BindingResult result,
@@ -67,7 +66,7 @@ public class AuthController {
                                @RequestParam("file") MultipartFile foto){
         User existing = userService.findByEmail(user.getEmail());
         if (existing != null) {
-            result.rejectValue("email", null, "Já existe uma conta registrada com esse e-mail");
+            result.rejectValue("email", null, "There is already an account registered with that email");
         }
         if (result.hasErrors()) {
             model.addAttribute("user", user);
@@ -106,80 +105,52 @@ public class AuthController {
         return "users";
     }
 
-    private UserDto convertEntityToDto(User user) {
+    private UserDto convertEntityToDto(User user){
         UserDto userDto = new UserDto();
         String[] name = user.getName().split(" ");
         userDto.setId(user.getId());
         userDto.setFirstName(name[0]);
         userDto.setLastName(name[1]);
         userDto.setEmail(user.getEmail());
-        userDto.setRoleName(user.getRoles().get(0).getName()); // Obtén el primer rol del usuario
-        userDto.setFoto(user.getFoto());
         userDto.setMatricula(user.getMatricula());
         userDto.setSiape(user.getSiape());
+        Set<String> roleNames = user.getUserRoles().stream()
+                .map(userRole -> userRole.getRole().getName())
+                .collect(Collectors.toSet());
+        userDto.setRoleName(roleNames);
+        userDto.setFoto(user.getFoto());
         return userDto;
     }
 
-    @GetMapping("/editarUser/{id}")
+    @GetMapping("/editUser/{id}")
     public String showEditUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
         UserDto userDto = convertEntityToDto(user);
         model.addAttribute("user", userDto);
-        return "editarUser";
+        return "editUser";
     }
 
-    @PostMapping("/editarUser/{id}")
+    @PostMapping("/editUser/{id}")
     public String editUser(@PathVariable("id") Long id, @Validated(EditValidation.class) UserDto userDto,
                            BindingResult result, RedirectAttributes msg, @RequestParam("file") MultipartFile foto) {
-        if (result.hasErrors()) {
-            msg.addFlashAttribute("erro", "Erro ao editar. Por favor, preencha todos os campos.");
-            return "redirect:/editarUser/" + id;
-        }
 
-        // Obtén el usuario existente
+        // Obtener el usuario existente
         User existingUser = userService.findById(id);
         if (existingUser == null) {
             msg.addFlashAttribute("erro", "Erro ao editar. Usuário não encontrado.");
             return "redirect:/users";
         }
 
-        // Actualiza los datos del usuario con los datos del DTO
+        // Actualizar los datos del usuario con los datos del DTO
         existingUser.setName(userDto.getFirstName() + " " + userDto.getLastName());
         existingUser.setEmail(userDto.getEmail());
         existingUser.setMatricula(userDto.getMatricula());
         existingUser.setSiape(userDto.getSiape());
 
-        // Actualiza el rol del usuario
-        Role role = roleRepository.findByName(userDto.getRoleName());
-        if (role == null) {
-            // Crea el rol si no existe
-            role = new Role();
-            role.setName(userDto.getRoleName());
-            roleRepository.save(role);
-        }
-        existingUser.setRoles(Arrays.asList(role)); // Asigna el nuevo rol al usuario
-
-        // Actualiza la foto si se proporciona una nueva
-        try {
-            if (!foto.isEmpty()) {
-                byte[] bytes = foto.getBytes();
-                Path caminho = Paths.get("./src/main/resources/static/img/" + foto.getOriginalFilename());
-                Files.write(caminho, bytes);
-                existingUser.setFoto(foto.getOriginalFilename());
-            }
-        } catch (IOException e) {
-            msg.addFlashAttribute("erro", "Erro ao processar a imagem.");
-            return "redirect:/editarUser/" + id;
-        }
-
-        // Convierte el usuario existente a UserDto
-        UserDto existingUserDto = convertEntityToDto(existingUser);
-
-        // Guarda los cambios en la base de datos
-        userService.updateUser(existingUserDto);
+        // Guardar los cambios en la base de datos
+        userService.updateUser(existingUser);
 
         msg.addFlashAttribute("success", "Usuário atualizado com sucesso.");
         return "redirect:/users";
     }
-
 }

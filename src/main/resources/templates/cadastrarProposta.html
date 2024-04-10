@@ -6,20 +6,13 @@
 </head>
 <body>
     <h2>Cadastro de Proposta</h2>
+    <p>Usuario: <span th:text="${nombreUsuario}"></span></p>
     <form method="post">
-        <label for="estudante">Estudante:</label>
-        <select name="estudante" id="estudante">
-            <option value="">Selecione um Estudante</option>
-            <th:block th:each="usuario : ${usuarios}">
-                <option th:value="${usuario.id}" th:text="${usuario.name}"></option>
-            </th:block>
-        </select>
-        <br>
         <label for="orientador">Orientador:</label>
         <select name="orientador" id="orientador">
             <option value="">Selecione um Orientador</option>
-            <th:block th:each="usuario : ${usuarios}">
-                <option th:value="${usuario.id}" th:text="${usuario.name}"></option>
+            <th:block th:each="orientador : ${orientadores}">
+                <option th:value="${orientador.id}" th:text="${orientador.name}"></option>
             </th:block>
         </select>
         <br>

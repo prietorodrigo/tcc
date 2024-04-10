@@ -34,7 +34,15 @@
             <td><a th:href="@{/editarProposta/{id} (id=${proposta.id})}">Editar</a></td>
             <td><a th:href="@{/excluirProposta/{id} (id=${proposta.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Proposta?');">Excluir</a></td>
             <td><a th:href="@{/novaProducao/{id} (id=${proposta.id})}">Aprovar</a></td>
-            <td><a th:href="@{'/listarPropostas/' + ${proposta.id} + '?format=pdf'}" target="_blank">Baixar termo</a></td>
+            <td th:if="${proposta.aceitada}">
+                <a th:href="@{'/listarPropostas/' + ${proposta.id} + '?format=pdf'}" target="_blank">Baixar termo</a>
+            </td>
+            <td th:unless="${proposta.aceitada}">
+                <form th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}"
+                      th:action="@{'/aceitarProposta/' + ${proposta.id}}" method="post">
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja aceitar esta Proposta?')">Aceitar</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

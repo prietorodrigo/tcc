@@ -2,6 +2,7 @@ package com.tcc.tcc.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ public class Role {
     @Column(nullable=false, unique=true)
     private String name;
 
-    @ManyToMany(mappedBy="roles")
-    private List<User> users;
+    @OneToMany(mappedBy = "role", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<UserRole> userRoles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -33,11 +34,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

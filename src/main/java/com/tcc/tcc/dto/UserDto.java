@@ -4,6 +4,8 @@ import com.tcc.tcc.controller.EditValidation;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Set;
+
 public class UserDto {
     private Long id;
     @NotEmpty(groups = EditValidation.class)
@@ -20,8 +22,7 @@ public class UserDto {
     private String matricula;
     private String siape;
     @NotEmpty(message = "Role should not be empty", groups = EditValidation.class)
-    private String roleName;
-
+    private Set<String> roleName;
 
     public Long getId() {
         return id;
@@ -87,11 +88,11 @@ public class UserDto {
         this.siape = siape;
     }
 
-    public String getRoleName() {
+    public Set<String> getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(Set<String> roleName) {
         this.roleName = roleName;
     }
 }

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Editar Usuário</h2>
-<form th:action="@{/editarUser/{id}(id=${user.id})}" method="post" enctype="multipart/form-data" th:object="${user}">
+<form th:action="@{/editUser/{id}(id=${user.id})}" method="post" enctype="multipart/form-data" th:object="${user}">
     <label>Nome:</label>
     <input id="firstName" name="firstName" type="text" th:value="*{firstName}"/>
     <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
@@ -29,13 +29,6 @@
     <label>SIAPE:</label>
     <input id="siape" name="siape" type="text" th:value="*{siape}"/>
     <span th:if="${#fields.hasErrors('siape')}" th:errors="*{siape}"></span>
-    <br/>
-    <label>Tipo de Usuário:</label>
-    <select id="roleName" name="roleName">
-        <option value="ROLE_ESTUDIANTE" th:selected="${user.roleName == 'ROLE_ESTUDIANTE'}">Estudiante</option>
-        <option value="ROLE_ORIENTADOR" th:selected="${user.roleName == 'ROLE_ORIENTADOR'}">Orientador</option>
-        <option value="ROLE_ADMIN" th:selected="${user.roleName == 'ROLE_ADMIN'}">Administrador</option>
-    </select>
     <br/>
     <button type="submit">Editar</button>
 </form>

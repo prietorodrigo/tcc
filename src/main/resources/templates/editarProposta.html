@@ -7,28 +7,20 @@
 <body>
     <h1>Editar Proposta</h1>
     <th:block th:include="mensagens"></th:block>
+    <p>Usuario: <span th:text="${nombreUsuario}"></span></p>
     <form th:action="@{/editarProposta/{id}(id=${proposta.id})}" method="post" th:object="${proposta}">
-        <label for="estudante">Estudante:</label>
-        <select name="estudante" id="estudante">
-            <option value="">Selecione um Estudante</option>
-            <option th:each="usr : ${usuario}"
-                    th:value="${usr.id}"
-                    th:text="${usr.name}"
-                    th:selected="${usr.id == proposta.estudante.id}"></option>
-        </select>
-        <br>
+        <input type="hidden" name="estudante.id" th:value="${proposta.estudante.id}" />
         <label for="orientador">Orientador:</label>
         <select name="orientador" id="orientador">
-            <option value="">Selecione um Orientador</option>
-            <option th:each="usr : ${usuario}"
-                    th:value="${usr.id}"
-                    th:text="${usr.name}"
-                    th:selected="${usr.id == proposta.orientador.id}"></option>
+            <th:block th:each="orientador : ${orientadores}">
+                <option th:value="${orientador.id}"
+                        th:text="${orientador.name}"
+                        th:selected="${orientador.id == proposta.orientador.id}"></option>
+            </th:block>
         </select>
         <br>
         <label for="curso">Curso:</label>
         <select name="curso" id="curso">
-            <option value="">Selecione um curso</option>
             <option th:each="crs : ${curso}"
                     th:value="${crs.id}"
                     th:text="${crs.nome}"
@@ -37,7 +29,6 @@
         <br>
         <label for="area">Area:</label>
         <select name="area" id="area">
-            <option value="">Selecione uma área</option>
             <option th:each="a : ${area}"
                     th:value="${a.id}"
                     th:text="${a.nome}"
@@ -49,6 +40,11 @@
         <br>
         <label for="descricao">Texto</label>
         <textarea id="descricao" name="descricao" th:text="${proposta.descricao}"></textarea>
+        <br>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ORIENTADOR'') or hasRole(''ROLE_ADMIN'')')}">
+            <label>Aceitada:</label>
+            <input type="checkbox" th:field="*{aceitada}" />
+        </div>
         <br>
         <button type="submit">Editar</button>
     </form>

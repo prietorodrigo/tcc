@@ -9,15 +9,18 @@ import java.util.List;
 public interface UserService {
     void saveUser(UserDto userDto);
 
-    void updateUser(UserDto userDto);
-
     User findByEmail(String email);
-
-    User findById(long id);
 
     List<UserDto> findAllUsers();
 
     List<User> findAll();
 
     List<User> findUserByNameLike(String nome);
+
+    User findByName(String name);
+    List<User> findByRole(String roleName);
+
+    User findById(long id);
+
+    User updateUser(User user);
 }

@@ -21,10 +21,12 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Nomes</th>
-        <th>Sobrenomes</th>
-        <th>E-mail</th>
-        <th>Rol</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Matrícula</th>
+        <th>SIAPE</th>
+        <th>Rol</th>z
         <th>Foto</th>
     </tr>
     </thead>
@@ -34,9 +36,13 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
+        <td th:text="${user.matricula}"></td>
+        <td th:text="${user.siape}"></td>
         <td th:text="${user.roleName}"></td>
         <td><img th:src="@{/foto/{foto}(foto=${user.foto})}" width="50px"/></td>
-        <td><a th:href="@{/editarUser/{id} (id=${user.id})}">Editar</a></td>
+        <td><a th:href="@{/editUser/{id} (id=${user.id})}">Editar</a></td>
+        <td><a th:href="@{/listarUserRole/{id} (id=${user.id})}">Roles</a></td>
+        <td><a th:href="@{/novoUsuarioCurso/{id} (id=${user.id})}">Matricular</a></td>
     </tr>
     </tbody>
 </table>

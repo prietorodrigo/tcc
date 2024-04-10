@@ -44,6 +44,12 @@ public class Proposta {
     @JoinColumn(name = "orientador_id")
     private User orientador;
 
+    private boolean aceitada;
+
+    @OneToOne
+    @JoinColumn(name="ideia_id")
+    private Ideia ideia;
+
     public long getId() {
         return id;
     }
@@ -114,5 +120,21 @@ public class Proposta {
 
     public void setOrientador(User orientador) {
         this.orientador = orientador;
+    }
+
+    public boolean isAceitada() {
+        return aceitada;
+    }
+
+    public void setAceitada(boolean aceitada) {
+        this.aceitada = aceitada;
+    }
+
+    public Ideia getIdeia() {
+        return ideia;
+    }
+
+    public void setIdeia(Ideia ideia) {
+        this.ideia = ideia;
     }
 }

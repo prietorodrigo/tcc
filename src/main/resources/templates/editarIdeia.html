@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Ideia</title>
+</head>
+<body>
+<th:block th:include="mensagens"></th:block>
+<h2>Editar Ideia</h2>
+<form method="post">
+    <label>Tema:</label>
+    <input type="text" id="tema" name="tema" th:value="${tema}">
+    <br>
+    <label>Descrição:</label>
+    <textarea id="descricao" name="descricao" th:text="${descricao}"></textarea>
+    <br>
+    <label>Reservada:</label>
+    <input type="checkbox" th:checked="${reservada}" />
+    <br>
+    <button type="submit">Salvar</button>
+</form>
+</body>
+</html>

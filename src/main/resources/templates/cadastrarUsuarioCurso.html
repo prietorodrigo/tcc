@@ -9,12 +9,12 @@
 <form method="post">
     <label for="usuario">Usuario:</label>
     <select name="usuario" id="usuario">
-        <option value="">Selecione um Usuário</option>
         <th:block th:each="usuario : ${usuarios}">
-            <option th:value="${usuario.id}" th:text="${usuario.name}"></option>
+            <option th:value="${usuario.id}" th:text="${usuario.name}" th:selected="${usuario.id eq usuarioCurso.usuario.id}"></option>
         </th:block>
     </select>
     <br>
+    <input type="hidden" name="cursoId" th:value="${cursoId}" id="cursoId">
     <label for="curso">Curso:</label>
     <select name="curso" id="curso">
         <option value="">Selecione um curso</option>

@@ -3,26 +3,28 @@ package com.tcc.tcc.serviceImpl;
 import com.tcc.tcc.dto.UserDto;
 import com.tcc.tcc.model.Role;
 import com.tcc.tcc.model.User;
+import com.tcc.tcc.model.UserRole;
 import com.tcc.tcc.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tcc.tcc.repository.UserRepository;
 import com.tcc.tcc.repository.RoleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, InitializingBean {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder) {
@@ -32,101 +34,50 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
-        try {
-            User user = new User();
-            user.setName(userDto.getFirstName() + " " + userDto.getLastName());
-            user.setEmail(userDto.getEmail());
-            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            user.setFoto(userDto.getFoto());
-            user.setMatricula(userDto.getMatricula());
-            user.setSiape(userDto.getSiape());
+    public void afterPropertiesSet() throws Exception {
+        initializeRoles();
+    }
 
-            // Obtén o crea los roles
-            Role roleEstudiante = checkRoleExist("ROLE_ESTUDIANTE");
-            Role roleOrientador = checkRoleExist("ROLE_ORIENTADOR");
-            Role roleAdmin = checkRoleExist("ROLE_ADMIN");
-
-            // Asigna roles al usuario según su tipo
-            if (userDto.getRoleName().equals("ESTUDIANTE")) {
-                user.setRoles(Arrays.asList(roleEstudiante));
-            } else if (userDto.getRoleName().equals("ORIENTADOR")) {
-                user.setRoles(Arrays.asList(roleOrientador));
-            } else {
-                user.setRoles(Arrays.asList(roleAdmin));
+    private void initializeRoles() {
+        List<String> roleNames = Arrays.asList("ROLE_ADMIN", "ROLE_ESTUDIANTE", "ROLE_ORIENTADOR");
+        for (String roleName : roleNames) {
+            if (!roleRepository.existsByName(roleName)) {
+                Role role = new Role();
+                role.setName(roleName);
+                roleRepository.save(role);
             }
-            userRepository.save(user);
-            System.out.println("Usuario guardado correctamente: " + userDto.getEmail());
-        }
-        catch (Exception e) {
-            System.out.println("Error al guardar el usuario: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
     @Override
-    @Transactional
-    public void updateUser(UserDto userDto) {
-        try {
-            // Buscar el usuario existente por su ID
-            User user = userRepository.findById(userDto.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado para el ID proporcionado: " + userDto.getId()));
-
-            // Actualizar los campos comunes del usuario
+    public void saveUser(UserDto userDto) {
+        try{
+            User user = new User();
             user.setName(userDto.getFirstName() + " " + userDto.getLastName());
             user.setEmail(userDto.getEmail());
+
+            //encrypt the password once we integrate spring security
+            //user.setPassword(userDto.getPassword());
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
             user.setFoto(userDto.getFoto());
             user.setMatricula(userDto.getMatricula());
             user.setSiape(userDto.getSiape());
+            Set<UserRole> userRoles = assignRoles(userDto.getRoleName(), user);
+            user.setUserRoles(userRoles);
 
-            // Obtener los roles existentes
-            Role roleEstudiante = roleRepository.findByName("ROLE_ESTUDIANTE");
-            Role roleOrientador = roleRepository.findByName("ROLE_ORIENTADOR");
-            Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
-
-            // Crear una nueva lista de roles
-            List<Role> roles = new ArrayList<>();
-
-            // Asignar roles al usuario según su tipo
-            if (userDto.getRoleName().equals("ESTUDIANTE")) {
-                user.setRoles(Arrays.asList(roleEstudiante));
-            } else if (userDto.getRoleName().equals("ORIENTADOR")) {
-                user.setRoles(Arrays.asList(roleOrientador));
-            } else {
-                user.setRoles(Arrays.asList(roleAdmin));
-            }
-
-            // Verificar si se proporciona una nueva contraseña
-            if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
-                // Codificar y establecer la nueva contraseña
-                user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            }
-
-            // Establecer la nueva lista de roles
-            user.setRoles(roles);
-
-            // Guardar los cambios en el usuario
             userRepository.save(user);
-            System.out.println("Usuario actualizado correctamente: " + userDto.getEmail());
+            System.out.println("Usuario guardado correctamente: " + userDto.getEmail());
         } catch (Exception e) {
-            System.out.println("Error al actualizar el usuario: " + e.getMessage());
+            System.out.println("Error al guardar el usuario: " + e.getMessage());
             e.printStackTrace();
         }
-    }
 
-    private Role getRoleIfExists(Role role) {
-        return role != null ? role : new Role();
     }
-
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public User findById(long id) {
-        return userRepository.findById(id).get();
     }
 
     @Override
@@ -146,6 +97,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByNameLike(nome);
     }
 
+    @Override
+    public User findByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
+    public List<User> findByRole(String roleName) {
+        return userRepository.findByUserRoles_Role_Name(roleName);
+    }
+
+    @Override
+    public User findById(long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
+
     private UserDto convertEntityToDto(User user){
         UserDto userDto = new UserDto();
         String[] name = user.getName().split(" ");
@@ -153,18 +125,29 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(name[0]);
         userDto.setLastName(name[1]);
         userDto.setEmail(user.getEmail());
-        userDto.setRoleName(user.getRoles().get(0).getName());
+        userDto.setMatricula(user.getMatricula());
+        userDto.setSiape(user.getSiape());
+        Set<String> roleNames = user.getUserRoles().stream()
+                .map(userRole -> userRole.getRole().getName())
+                .collect(Collectors.toSet());
+        userDto.setRoleName(roleNames);
         userDto.setFoto(user.getFoto());
         return userDto;
     }
 
-    private Role checkRoleExist(String roleName) {
-        Role role = roleRepository.findByName(roleName);
-        if (role == null) {
-            role = new Role();
-            role.setName(roleName);
-            roleRepository.save(role);
+    private Set<UserRole> assignRoles(Set<String> roleNames, User user) {
+        Set<UserRole> userRoles = new HashSet<>();
+        if (roleNames != null && !roleNames.isEmpty()) {
+            for (String roleName : roleNames) {
+                Role role = roleRepository.findByName(roleName);
+                if (role != null) {
+                    UserRole userRole = new UserRole();
+                    userRole.setUser(user);
+                    userRole.setRole(role);
+                    userRoles.add(userRole);
+                }
+            }
         }
-        return role;
+        return userRoles;
     }
 }

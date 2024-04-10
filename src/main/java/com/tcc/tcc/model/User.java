@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -30,12 +31,8 @@ public class User {
 
     private String siape;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            name="users_roles",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-    private List<Role> roles = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private Set<UserRole> userRoles;
 
     @OneToMany(mappedBy = "usuario")
     private List<UsuarioCurso> usuarioCursos = new ArrayList<>();
@@ -45,7 +42,6 @@ public class User {
 
     @OneToMany(mappedBy="orientador")
     private List<Proposta> propostasorientador;
-
 
     public Long getId() {
         return id;
@@ -103,12 +99,12 @@ public class User {
         this.siape = siape;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public List<UsuarioCurso> getUsuarioCursos() {

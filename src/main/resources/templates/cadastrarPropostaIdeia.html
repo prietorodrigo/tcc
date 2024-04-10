@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Proposta</title>
+</head>
+<body>
+<h2>Cadastro de Proposta</h2>
+<p>Usuario: <span th:text="${nombreUsuario}"></span></p>
+<form method="post">
+    <label for="tema">Tema:</label>
+    <input type="text" id="tema" name="tema" th:value="${ideia.tema}">
+    <br>
+    <label for="descricao" class="form-label">Texto</label>
+    <textarea id="descricao" name="descricao" th:text="${ideia.descricao}"></textarea>
+    <br>
+    <label for="orientador">Orientador:</label>
+    <select name="orientador" id="orientador">
+        <option value="">Selecione um Orientador</option>
+        <th:block th:each="orientador : ${orientadores}">
+            <option th:value="${orientador.id}" th:text="${orientador.name}"></option>
+        </th:block>
+    </select>
+    <br>
+    <label for="curso">Curso:</label>
+    <select name="curso" id="curso">
+        <option value="">Selecione um curso</option>
+        <th:block th:each="curso : ${cursos}">
+            <option th:value="${curso.id}" th:text="${curso.nome}"></option>
+        </th:block>
+    </select>
+    <br>
+    <label for="area">Area:</label>
+    <select name="area" id="area">
+        <option value="">Selecione uma área</option>
+        <th:block th:each="area : ${areas}">
+            <option th:value="${area.id}" th:text="${area.nome}"></option>
+        </th:block>
+    </select>
+    <br>
+    <button type="submit">Cadastrar</button>
+</form>
+</body>
+</html>

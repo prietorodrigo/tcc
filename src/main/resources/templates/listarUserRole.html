@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Roles do usuário</title>
+</head>
+<body>
+<h1>Roles do usuário</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Usuário</th>
+        <th>Rol</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="userRole : ${userRoles}">
+        <td th:text="${userRole.user.name}"></td>
+        <td th:text="${userRole.role.name}"></td>
+        <td><a th:href="@{/excluirUserRole/{id} (id=${userRole.id})}" onclick="return confirm('Tem certeza que deseja excluir este rol?');">Excluir</a></td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/listarUserRole/} + ${id}" method="post">
+    <label for="roles">Adicionar rol</label>
+    <select name="roles" id="roles">
+        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+    </select>
+    <input type="submit" value="Adicionar">
+</form>
+</body>
+</html>
