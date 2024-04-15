@@ -43,83 +43,48 @@ public class UsuarioCursoController {
     @RequestMapping(value="/inicioUC", method = RequestMethod.GET)
     public String inicio() { return "index"; }
 
-    @RequestMapping(value="/novoUsuarioCurso/{id}", method=RequestMethod.GET)
-    public String novoUsuarioCurso(@PathVariable("id") Long id, Model model) {
-        Optional<User> usuarioOptional = userRepository.findById(id);
-        if (!usuarioOptional.isPresent()) {
-            return "redirect:/listarUsuariosCursos";
-        }
-        User usuario = usuarioOptional.get(); // Obtener el usuario
-        UsuarioCurso usuarioCurso = new UsuarioCurso();
-        usuarioCurso.setUsuario(usuario);
-        List<Curso> cursos = cursoService.findAll();
-        model.addAttribute("usuarioCurso", usuarioCurso);
-        model.addAttribute("usuarios", usuario);
-        model.addAttribute("cursos", cursos);
-        return "cadastrarUsuarioCurso";
-    }
-
-    @RequestMapping(value="/novoUsuarioCurso/{id}", method=RequestMethod.POST)
+    @RequestMapping(value="/listarUsuariosCursos/{id}", method=RequestMethod.POST)
     public String cadastroUsuarioCurso(@PathVariable("id") Long id,
+                                       @RequestParam("ano") int ano,
+                                       @RequestParam("semestre") int semestre,
                                        @Valid UsuarioCurso usuarioCurso,
-                                       BindingResult result,
-                                       RedirectAttributes msg) {
-        if(result.hasErrors()) {
-            msg.addFlashAttribute("erro", "Erro ao cadastrar. Por favor, preencha todos os campos");
-            return "redirect:/novoUsuarioCurso/" + id;
+                                       @RequestParam("cursos") Long cursoId) {
+        Optional<User> userOptional = userRepository.findById(id);
+        Optional<Curso> cursoOptional = cursoRepository.findById(cursoId);
+        if (!userOptional.isPresent() || !cursoOptional.isPresent()) {
+            // Manejar el caso donde el usuario o el rol no existen
+            return "redirect:/listarUsuariosCursos/" + id;
         }
+        User user = userOptional.get();
+        Curso curso = cursoOptional.get();
 
-        // Obtener el usuario por su ID
-        Optional<User> usuarioOptional = userRepository.findById(id);
-        if (!usuarioOptional.isPresent()) {
-            // Manejar el caso en que el usuario no existe
-            return "redirect:/listarUsuariosCursos";
-        }
-
-        // Asignar el usuario al objeto UsuarioCurso
-        usuarioCurso.setUsuario(usuarioOptional.get());
+        usuarioCurso = new UsuarioCurso();
+        usuarioCurso.setUsuario(user);
+        usuarioCurso.setCurso(curso);
+        usuarioCurso.setAno(ano);
+        usuarioCurso.setSemestre(semestre);
 
         usuarioCursoRepository.save(usuarioCurso);
-        msg.addFlashAttribute("sucesso", "UsuarioCurso cadastrado.");
 
-        return "redirect:/listarUsuariosCursos";
+        return "redirect:/listarUsuariosCursos/" + id;
     }
 
-    @RequestMapping(value="/listarUsuariosCursos", method=RequestMethod.GET)
-    public ModelAndView getUsuariosCursos() {
+    @RequestMapping(value="/listarUsuariosCursos/{id}", method=RequestMethod.GET)
+    public ModelAndView getUsuariosCursos(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("listarUsuariosCursos");
-        List<UsuarioCurso> usuariosCursos = usuarioCursoRepository.findAll();
+        Optional<User> user = userRepository.findById(id);
+        List<UsuarioCurso> usuariosCursos = usuarioCursoRepository.findByUsuario(user);
         mv.addObject("usuariosCursos", usuariosCursos);
+
+        List<Curso> cursos = cursoService.findAll();
+        mv.addObject("cursos", cursos);
         return mv;
     }
 
-    @RequestMapping(value="/editarUsuarioCurso/{id}", method=RequestMethod.GET)
-    public String editar(@PathVariable("id") Long id, Model model) {
-        UsuarioCurso usuarioCurso = usuarioCursoRepository.findById(id).orElse(null);
-        User usuario = usuarioCurso.getUsuario();
-        List<Curso> curso = cursoService.findAll();
-        model.addAttribute("usuarioCurso", usuarioCurso);
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("curso", curso);
-        return "editarUsuarioCurso";
-    }
-
-    @RequestMapping(value="/editarUsuarioCurso/{id}", method=RequestMethod.POST)
-    public String editarUsuarioCursoBanco(@PathVariable("id") Long id, @Valid UsuarioCurso usuarioCurso,
-                                     BindingResult result, RedirectAttributes msg) {
-        if(result.hasErrors()) {
-            msg.addFlashAttribute("erro", "Erro ao editar. Por favor, preencha todos os campos.");
-            return "redirect:/editarUsuarioCurso/" + id;
-        }
-
-        usuarioCursoRepository.save(usuarioCurso);
-        msg.addFlashAttribute("success", "UsuarioCurso atualizado com sucesso.");
-        return "redirect:/listarUsuariosCursos";
-    }
-
     @RequestMapping(value="/excluirUsuarioCurso/{id}", method=RequestMethod.GET)
+    @Transactional
     public String excluirUsuarioCurso(@PathVariable("id") Long id) {
         usuarioCursoRepository.deleteById(id);
-        return "redirect:/listarUsuariosCursos";
+        return "redirect:/users";
     }
 }

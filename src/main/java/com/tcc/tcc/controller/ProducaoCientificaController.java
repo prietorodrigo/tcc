@@ -6,15 +6,20 @@ import com.tcc.tcc.repository.ProducaoCientificaRepository;
 import com.tcc.tcc.repository.PropostaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -36,12 +41,23 @@ public class ProducaoCientificaController {
     }
 
     @RequestMapping(value="/novaProducao/{id}", method=RequestMethod.POST)
-    public String cadastroProducao(@PathVariable("id") Long id, @Valid ProducaoCientifica producaoCientifica, BindingResult result, RedirectAttributes msg){
+    public String cadastroProducao(@PathVariable("id") Long id, @Valid ProducaoCientifica producaoCientifica, BindingResult result, RedirectAttributes msg, @RequestParam("file") MultipartFile pdf){
         Optional<Proposta> propostaOptional = propostaRepository.findById(id);
         Proposta proposta = propostaOptional.get();
         if(result.hasErrors()) {
             msg.addFlashAttribute("erro", "Erro ao cadastrar. Por favor, preencha todos os campos");
             return "redirect:/vermaisVaga/{id}";
+        }
+
+        try {
+            if (!pdf.isEmpty()) {
+                byte[] bytes = pdf.getBytes();
+                Path caminho = Paths.get("./src/main/resources/static/pdf/"+pdf.getOriginalFilename());
+                Files.write(caminho, bytes);
+                producaoCientifica.setPdf(pdf.getOriginalFilename());
+            }
+        } catch (IOException e) {
+            System.out.println("Erro PDF");
         }
 
         producaoCientifica.setProposta(proposta);
@@ -50,6 +66,25 @@ public class ProducaoCientificaController {
         msg.addFlashAttribute("sucesso", "Produção Científica cadastrada com sucesso.");
 
         return "redirect:/listarProducoes";
+    }
+
+    @RequestMapping(value = "/pdf/{pdf}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    @ResponseBody
+    public ResponseEntity<byte[]> getPdf(@PathVariable("pdf") String pdf) {
+        try {
+            Path pdfPath = Paths.get("./src/main/resources/static/pdf/" + pdf);
+            byte[] pdfBytes = Files.readAllBytes(pdfPath);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.builder("inline").filename(pdf).build());
+
+            return ResponseEntity.ok().headers(headers).body(pdfBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejar el error de lectura del archivo PDF
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @RequestMapping(value = "/listarProducoes", method = RequestMethod.GET)
@@ -111,6 +146,7 @@ public class ProducaoCientificaController {
         mv.addObject("tipo", producaoOpt.get().getTipo());
         mv.addObject("coorientador", producaoOpt.get().getCoorientador());
         mv.addObject("resumo", producaoOpt.get().getResumo());
+        mv.addObject("pdf", producaoOpt.get().getPdf());
         mv.addObject("apresentacoes", producaoOpt.get().getApresentacoes());
         mv.addObject("palavrasChaves", producaoOpt.get().getPalavrasChaves());
         if (producaoOpt.isPresent()) {

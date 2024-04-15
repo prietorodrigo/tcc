@@ -6,7 +6,7 @@
 </head>
 <body>
     <h2>Editar Produção Científica</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <label for="ano">Ano:</label>
         <select id="ano" name="ano">
             <option th:each="year : ${#numbers.sequence(2006, 2100)}"
@@ -49,7 +49,9 @@
         <th:block th:each="palavra, iterStat : ${palavrasChavesList}">
             <input type="text" th:id="'palavraChave' + ${iterStat.index + 1}" th:name="'palavraChave' + ${iterStat.index + 1}" th:value="${palavra}">
         </th:block>
-
+        <br/>
+        <label>PDF:</label>
+        <input id="file" name="file" type="file" multiple/>
         <button type="submit" onclick="concatenateKeywords()">Editar</button>
     </form>
     <script>

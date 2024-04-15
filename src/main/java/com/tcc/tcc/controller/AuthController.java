@@ -1,10 +1,12 @@
 package com.tcc.tcc.controller;
 
 import com.tcc.tcc.dto.UserDto;
+import com.tcc.tcc.model.Curso;
 import com.tcc.tcc.model.Role;
 import com.tcc.tcc.model.User;
 import com.tcc.tcc.repository.RoleRepository;
 import com.tcc.tcc.repository.UserRepository;
+import com.tcc.tcc.service.CursoService;
 import com.tcc.tcc.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +33,8 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     private UserService userService;
+
+    @Autowired CursoService cursoService;
 
     private UserRepository userRepository;
 
@@ -102,6 +107,13 @@ public class AuthController {
     public String listRegisteredUsers(Model model){
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
+
+        List<List<Curso>> cursosPorUsuario = new ArrayList<>();
+        for(UserDto user : users) {
+            List<Curso> cursos = cursoService.findCursosByUserId(user.getId());
+            cursosPorUsuario.add(cursos);
+        }
+        model.addAttribute("cursosPorUsuario", cursosPorUsuario);
         return "users";
     }
 

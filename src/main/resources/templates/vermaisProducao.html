@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <th>Arquivo</th>
-        <td th:text="${pdf}"></td>
+        <td><a th:href="@{/pdf/{pdf}(pdf=${pdf})}" target="_blank" th:text="${pdf}"></a></td>
     </tr>
     <tr>
         <th>Apresentações</th>

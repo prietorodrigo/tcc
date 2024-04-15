@@ -6,7 +6,7 @@
 </head>
 <body>
     <h2>Cadastro de Produção Científica</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <label for="ano">Ano:</label>
         <select id="ano" name="ano"></select>
             <script>
@@ -75,6 +75,9 @@
         <input type="text" id="palavraChave4" name="palavraChave4">
         <label for="palavraChave5">Palavra chave 5:</label>
         <input type="text" id="palavraChave5" name="palavraChave5">
+        <br>
+        <label for="pdf">PDF:</label>
+        <input type="file" name="file" id="pdf" multiple>
         <script>
             function concatenateKeywords() {
               const palavraChave1 = document.getElementById("palavraChave1").value;

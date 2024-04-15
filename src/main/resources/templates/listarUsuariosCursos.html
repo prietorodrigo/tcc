@@ -2,10 +2,10 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Usuario-Cursos</title>
+    <title>Cursos do usuário</title>
 </head>
 <body>
-    <h1>Lista de Usuario-Cursos</h1>
+    <h1>Cursos do usuário</h1>
     <table>
         <thead>
         <tr>
@@ -21,10 +21,52 @@
                 <td th:text="${usuarioCurso.curso.nome}"></td>
                 <td th:text="${usuarioCurso.ano}"></td>
                 <td th:text="${usuarioCurso.semestre}"></td>
-                <td><a th:href="@{/editarUsuarioCurso/{id} (id=${usuarioCurso.id})}">Editar</a></td>
                 <td><a th:href="@{/excluirUsuarioCurso/{id} (id=${usuarioCurso.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Inscrição?');">Excluir</a></td>
             </tr>
         </tbody>
     </table>
+    <form th:action="@{/listarUsuariosCursos/} + ${id}" method="post">
+        <label for="cursos">Curso</label>
+        <select name="cursos" id="cursos">
+            <option value="">Selecione um curso</option>
+            <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+        </select>
+        <br>
+        <label for="ano">Ano:</label>
+        <select id="ano" name="ano"></select>
+
+        <script>
+            // Obtener el año actual
+            var ano_actual = new Date().getFullYear();
+
+            // Obtener el elemento select
+            var select_ano = document.getElementById("ano");
+
+            // Agregar opciones de años desde 2006 hasta 2100
+            for (var ano = 2006; ano <= 2100; ano++) {
+                // Crear una nueva opción
+                var opcion = document.createElement("option");
+                opcion.text = ano;
+                opcion.value = ano;
+
+                // Si es el año actual, seleccionarlo por defecto
+                if (ano === ano_actual) {
+                    opcion.selected = true;
+                }
+
+                // Agregar la opción al select
+                select_ano.add(opcion);
+            }
+        </script>
+
+        <br>
+        <label for="semestre">Semestre:</label>
+        <select id="semestre" name="semestre">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <br>
+        <input type="submit" value="Salvar">
+    </form>
 </body>
 </html>

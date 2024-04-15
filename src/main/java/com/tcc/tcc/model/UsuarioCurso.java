@@ -10,11 +10,11 @@ public class UsuarioCurso {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private User usuario;
 
     @ManyToOne
-    @JoinColumn(name = "curso_id")
+    @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private Curso curso;
 
     @Column(nullable = false)

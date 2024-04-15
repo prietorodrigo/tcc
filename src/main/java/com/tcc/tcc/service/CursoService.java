@@ -8,4 +8,5 @@ public interface CursoService {
     List<Curso> findAll();
     Curso findById(long id);
     Curso save(Curso curso);
+    List<Curso> findCursosByUserId(Long userId);
 }

@@ -26,23 +26,33 @@
         <th>Email</th>
         <th>Matrícula</th>
         <th>SIAPE</th>
-        <th>Rol</th>z
+        <th>Rol</th>
+        <th>Cursos</th>
         <th>Foto</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user: ${users}">
+    <tr th:each="user, userIndex : ${users}">
         <th th:text="${user.id}"></th>
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.matricula}"></td>
         <td th:text="${user.siape}"></td>
-        <td th:text="${user.roleName}"></td>
+        <td>
+            <ul>
+                <li th:each="role : ${user.roleName}" th:text="${role}"></li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li th:each="curso : ${cursosPorUsuario[userIndex.index]}" th:text="${curso.nome}"></li>
+            </ul>
+        </td>
         <td><img th:src="@{/foto/{foto}(foto=${user.foto})}" width="50px"/></td>
         <td><a th:href="@{/editUser/{id} (id=${user.id})}">Editar</a></td>
         <td><a th:href="@{/listarUserRole/{id} (id=${user.id})}">Roles</a></td>
-        <td><a th:href="@{/novoUsuarioCurso/{id} (id=${user.id})}">Matricular</a></td>
+        <td><a th:href="@{/listarUsuariosCursos/{id} (id=${user.id})}">Cursos</a></td>
     </tr>
     </tbody>
 </table>
