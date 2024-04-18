@@ -2,30 +2,133 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.0.5/i18n/pt-BR.json"></script>
     <title>Lista de Produções Científicas</title>
 </head>
 <body>
-    <h1>Lista de Produções Científicas</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>Tema</th>
-            <th>Estudante</th>
-            <th>Resumo</th>
-            <th>Palavras chaves</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="producao : ${producoes}">
-            <td th:text="${producao.proposta.tema}"></td>
-            <td th:text="${producao.proposta.estudante.name}"></td>
-            <td th:text="${producao.resumo}"></td>
-            <td th:text="${producao.palavrasChaves}"></td>
-            <td><a th:href="@{/editarProducao/{id} (id=${producao.id})}">Editar</a></td>
-            <td><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');">Excluir</a></td>
-            <td><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}">Ver mais</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        <h2>Lista de Produções Científicas</h2>
+        <br>
+        <select id="semestreInput">
+            <option value="">Buscar por semestre</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <br>
+        <select id="anoInput">
+            <option value="">Buscar por ano</option>
+        </select>
+        <script>
+            // Obtener el elemento select
+            var select_ano = document.getElementById("anoInput");
+
+            // Agregar opciones de años desde 2006 hasta 2100
+            for (var ano = 2006; ano <= 2100; ano++) {
+                // Crear una nueva opción
+                var opcion = document.createElement("option");
+                opcion.text = ano;
+                opcion.value = ano;
+
+                // Agregar la opción al select
+                select_ano.add(opcion);
+            }
+        </script>
+        <br>
+        <select id="tipoInput">
+            <option value="">Buscar por género académico</option>
+            <option value="Artigo científico">Artigo científico</option>
+            <option value="Dissertação">Dissertação</option>
+            <option value="Ensaio">Ensaio</option>
+            <option value="Fichamento">Fichamento</option>
+            <option value="Monografia">Monografia</option>
+            <option value="Projeto de pesquisa">Projeto de pesquisa</option>
+            <option value="Relatório">Relatório</option>
+            <option value="Resenha">Resenha</option>
+            <option value="Resumo">Resumo</option>
+            <option value="Tese">Tese</option>
+        </select>
+        <br>
+        <input id="orientadorInput" type="text" placeholder="Buscar por orientador">
+        <br>
+        <table id="myTable">
+            <thead>
+            <tr>
+                <th>
+                    <input id="temaInput" type="text" placeholder="Buscar por título">
+                </th>
+                <th>
+                    <input id="estudanteInput" type="text" placeholder="Buscar por autor">
+                </th>
+                <th>
+                </th>
+                <th>
+                    <input id="keywordsInput" type="text" placeholder="Buscar por palavra chave">
+                </th>
+            </tr>
+            <tr>
+                <th>Tema</th>
+                <th>Estudante</th>
+                <th>Resumo</th>
+                <th>Palavras chaves</th>
+                <th style="display: none;">Semestre</th>
+                <th style="display: none;">Ano</th>
+                <th style="display: none;">Tipo</th>
+                <th style="display: none;">Orientador</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+                <th>Ver mais</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="producao : ${producoes}">
+                <td th:text="${producao.proposta.tema}"></td>
+                <td th:text="${producao.proposta.estudante.name}"></td>
+                <td th:text="${producao.resumo}"></td>
+                <td th:text="${producao.palavrasChaves}"></td>
+                <td style="display: none;" th:text="${producao.semestre}"></td>
+                <td style="display: none;" th:text="${producao.ano}"></td>
+                <td style="display: none;" th:text="${producao.tipo}"></td>
+                <td style="display: none;" th:text="${producao.proposta.orientador.name}"></td>
+                <td><a th:href="@{/editarProducao/{id} (id=${producao.id})}">Editar</a></td>
+                <td><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');">Excluir</a></td>
+                <td><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}">Ver mais</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var table = $('#myTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/2.0.5/i18n/pt-BR.json',
+                }
+            });
+            $('#temaInput').on('keyup', function () {
+                table.column(0).search(this.value).draw();
+            });
+            $('#estudanteInput').on('keyup', function () {
+                table.column(1).search(this.value).draw();
+            });
+            $('#keywordsInput').on('keyup', function () {
+                table.column(3).search(this.value).draw();
+            });
+            $('#semestreInput').on('change', function () {
+                table.column(4).search(this.value).draw();
+            });
+            $('#anoInput').on('change', function () {
+                table.column(5).search(this.value).draw();
+            });
+            $('#tipoInput').on('change', function () {
+                table.column(6).search(this.value).draw();
+            });
+            $('#orientadorInput').on('keyup', function () {
+                table.column(7).search(this.value).draw();
+            });
+        });
+    </script>
 </body>
 </html>
