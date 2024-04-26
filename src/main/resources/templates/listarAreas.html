@@ -2,25 +2,34 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Lista de Áreas</title>
 </head>
 <body>
-<h2>Lista de Áreas</h2>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="area : ${areas}">
-        <th th:text = ${area.id}></th>
-        <td th:text = ${area.nome}></td>
-        <td><a th:href="@{/editarArea/{id} (id=${area.id})}">Editar</a></td>
-        <td><a th:href="@{/excluirArea/{id} (id=${area.id})}" onclick="return confirm('Tem certeza que deseja excluir esta área?');">Excluir</a></td>
-    </tr>
-    </tbody>
-</table>
+    <main class="d-flex flex-nowrap">
+        <th:block th:include="menu"></th:block>
+        <div class="container" style="padding:20px">
+            <h2>Lista de Áreas</h2>
+            <a href="/novaArea">Nova Área</a>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="area : ${areas}">
+                    <th th:text = ${area.id}></th>
+                    <td th:text = ${area.nome}></td>
+                    <td><a th:href="@{/editarArea/{id} (id=${area.id})}">Editar</a></td>
+                    <td><a th:href="@{/excluirArea/{id} (id=${area.id})}" onclick="return confirm('Tem certeza que deseja excluir esta área?');">Excluir</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

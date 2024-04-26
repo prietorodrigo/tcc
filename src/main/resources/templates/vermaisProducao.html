@@ -2,63 +2,71 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Detalhes da Produção Científica</title>
 </head>
 <body>
-<h1>Detalhes da Produção Científica</h1>
-<table>
-    <tr>
-        <th>Semestre</th>
-        <td th:text="${semestre}"></td>
-    </tr>
-    <tr>
-        <th>Ano</th>
-        <td th:text="${ano}"></td>
-    </tr>
-    <tr>
-        <th>Gênero acadêmico</th>
-        <td th:text="${tipo}"></td>
-    </tr>
-    <tr>
-        <th>Coorientador</th>
-        <td th:text="${coorientador}"></td>
-    </tr>
-    <tr>
-        <th>Resumo</th>
-        <td th:text="${resumo}"></td>
-    </tr>
-    <tr>
-        <th>Arquivo</th>
-        <td><a th:href="@{/pdf/{pdf}(pdf=${pdf})}" target="_blank" th:text="${pdf}"></a></td>
-    </tr>
-    <tr>
-        <th>Apresentações</th>
-        <td th:text="${apresentacoes}"></td>
-    </tr>
-    <tr>
-        <th>Palavras chaves</th>
-        <td th:text="${palavrasChaves}"></td>
-    </tr>
-    <tr>
-        <th>Título</th>
-        <td th:text="${proposta.tema}"></td>
-    </tr>
-    <tr>
-        <th>Área</th>
-        <td th:text="${proposta.area.nome}"></td>
-    </tr>
-    <tr>
-        <th>Curso</th>
-        <td th:text="${proposta.curso.nome}"></td>
-    </tr>
-    <tr>
-        <th>Autor</th>
-        <td th:text="${proposta.estudante.name}"></td>
-    </tr>
-    <tr>
-        <th>Orientador</th>
-        <td th:text="${proposta.orientador.name}"></td>
-    </tr>
-</table>
+    <main class="d-flex flex-nowrap">
+        <th:block th:include="menu"></th:block>
+        <div class="container" style="padding:20px">
+            <h2>Detalhes da Produção Científica</h2>
+            <table>
+                <tr>
+                    <th>Semestre</th>
+                    <td th:text="${semestre}"></td>
+                </tr>
+                <tr>
+                    <th>Ano</th>
+                    <td th:text="${ano}"></td>
+                </tr>
+                <tr>
+                    <th>Gênero acadêmico</th>
+                    <td th:text="${tipo}"></td>
+                </tr>
+                <tr>
+                    <th>Coorientador</th>
+                    <td th:text="${coorientador}"></td>
+                </tr>
+                <tr>
+                    <th>Resumo</th>
+                    <td th:text="${resumo}"></td>
+                </tr>
+                <tr>
+                    <th>Arquivo</th>
+                    <td><a th:href="@{/pdf/{pdf}(pdf=${pdf})}" target="_blank" th:text="${pdf}"></a></td>
+                </tr>
+                <tr>
+                    <th>Apresentações</th>
+                    <td th:text="${apresentacoes}"></td>
+                </tr>
+                <tr>
+                    <th>Palavras chaves</th>
+                    <td th:text="${palavrasChaves}"></td>
+                </tr>
+                <tr>
+                    <th>Título</th>
+                    <td th:text="${proposta.tema}"></td>
+                </tr>
+                <tr>
+                    <th>Área</th>
+                    <td th:text="${proposta.area.nome}"></td>
+                </tr>
+                <tr>
+                    <th>Curso</th>
+                    <td th:text="${proposta.curso.nome}"></td>
+                </tr>
+                <tr>
+                    <th>Autor</th>
+                    <td th:text="${proposta.estudante.name}"></td>
+                </tr>
+                <tr>
+                    <th>Orientador</th>
+                    <td th:text="${proposta.orientador.name}"></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
