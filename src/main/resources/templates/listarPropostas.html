@@ -4,56 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Lista de Propostas</title>
+    <style>
+        .hover-on-li:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .hover-on-li-1:hover {
+            background-color: gray;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <main class="d-flex flex-nowrap">
-        <th:block th:include="menu"></th:block>
-        <div class="container" style="padding:20px">
-            <h2>Lista de Propostas</h2>
-            <form method="post" action="pesquisar">
-                Pesquisar:<input type="text" name="texto"/>
-                <input type="submit"/>
-            </form>
-            <a href="/novaProposta">Nova Proposta</a>
-            <table>
-                <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Estudante</th>
-                    <th>Orientador</th>
-                    <th>Curso</th>
-                    <th>Área</th>
-                    <th>Tema</th>
-                    <th>Descrição</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="proposta : ${propostas}">
-                    <td th:text="${proposta.data}"></td>
-                    <td th:text="${proposta.estudante.name}"></td>
-                    <td th:text="${proposta.orientador.name}"></td>
-                    <td th:text="${proposta.curso.nome}"></td>
-                    <td th:text="${proposta.area.nome}"></td>
-                    <td th:text="${proposta.tema}"></td>
-                    <td th:text="${proposta.descricao}"></td>
-                    <td><a th:href="@{/editarProposta/{id} (id=${proposta.id})}">Editar</a></td>
-                    <td><a th:href="@{/excluirProposta/{id} (id=${proposta.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Proposta?');">Excluir</a></td>
-                    <td><a th:href="@{/novaProducao/{id} (id=${proposta.id})}">Aprovar</a></td>
-                    <td th:if="${proposta.aceitada}">
-                        <a th:href="@{'/listarPropostas/' + ${proposta.id} + '?format=pdf'}" target="_blank">Baixar termo</a>
-                    </td>
-                    <td th:unless="${proposta.aceitada}">
-                        <form th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}"
-                              th:action="@{'/aceitarProposta/' + ${proposta.id}}" method="post">
-                            <button type="submit" onclick="return confirm('Tem certeza que deseja aceitar esta Proposta?')">Aceitar</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
+    <th:block th:include="header"></th:block>
+    <div class="container" style="padding:20px">
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb" style="padding-left:16px">
+                <li class="active" style="padding-right:8px">Você está aqui: </li>
+                <li class="breadcrumb-item"><a class="link-body-emphasis" href="/index"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                    <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+                </svg></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Lista de propostas</li>
+            </ol>
+        </nav>
+        <main class="d-flex flex-nowrap">
+            <th:block th:include="menu"></th:block>
+            <div class="container">
+                <div class="p-3 bg-body-secondary border-success border-top border-5 text-success fs-5">
+                    Lista de Propostas
+                </div>
+                <br>
+                <div class="col-md-6">
+                    <form method="post" action="pesquisar">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Buscar proposta" name="texto"/>
+                            <button type="submit" class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2 mb-3 justify-content-md-end">
+                            <a class="btn btn-outline-success btn-sm" href="/novaProposta">
+                                <i class="bi bi-plus-square"></i>
+                                Nova proposta
+                            </a>
+                        </div>
+                        <div class="card" th:each="proposta : ${propostas}" style="margin-bottom: 20px;">
+                            <div class="card-header" th:text="${'Cadastrada em ' + proposta.data}"></div>
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${proposta.tema}"></h5>
+                                <p class="card-text" th:text="${proposta.descricao}"></p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" th:text="${'Estudante: ' + proposta.estudante.name}"></li>
+                                <li class="list-group-item" th:text="${'Orientador: ' + proposta.orientador.name}"></li>
+                                <li class="list-group-item" th:text="${'Curso: ' + proposta.curso.nome}"></li>
+                                <li class="list-group-item" th:text="${'Área: ' + proposta.area.nome}"></li>
+                            </ul>
+                            <div class="card-body" style="display: flex; justify-content: space-between;">
+                                <a th:href="@{/editarProposta/{id} (id=${proposta.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i> Editar</a>
+                                <a th:href="@{/excluirProposta/{id} (id=${proposta.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta Proposta?');" title="Excluir"><i class="bi bi-trash"></i> Excluir</a>
+                                <a th:href="@{/novaProducao/{id} (id=${proposta.id})}" class="btn btn-outline-success" title="Aprovar"><i class="bi bi-journal-check"></i> Aprovar</a>
+                                <a th:if="${proposta.aceitada}" th:href="@{'/listarPropostas/' + ${proposta.id} + '?format=pdf'}" target="_blank" class="btn btn-outline-danger" title="Baixar termo de compromisso"><i class="bi bi-file-pdf"></i> Termo</a>
+                                <form th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}"
+                                      th:action="@{'/aceitarProposta/' + ${proposta.id}}"
+                                      th:unless="${proposta.aceitada}" method="post">
+                                    <button type="submit" class="btn btn-outline-success" onclick="return confirm('Tem certeza que deseja aceitar esta Proposta?')" title="Aceitar orientação"><i class="bi bi-hand-thumbs-up"></i> Aceitar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <th:block th:include="footer"></th:block>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

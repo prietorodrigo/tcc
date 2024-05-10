@@ -63,6 +63,7 @@ public class SpringSecurity {
                                 .requestMatchers("/editarIdeia/**").hasRole("ADMIN")
                                 .requestMatchers("/excluirIdeia/**").hasRole("ADMIN")
                                 .requestMatchers("/novaPropostaIdeia/**").hasRole("ADMIN")
+                                .requestMatchers("/header").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
