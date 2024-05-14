@@ -135,17 +135,25 @@ public class PropostaController {
         String username = authentication.getName();
         User usuarioLogueado = userService.findByEmail(username);
         List<Proposta> propostas;
-        if (usuarioLogueado.getUserRoles().stream().anyMatch(r -> r.getRole().equals("ROLE_ORIENTADOR"))) {
+
+        boolean isOrientador = usuarioLogueado.getUserRoles().stream().anyMatch(userRole -> userRole.getRole().getName().equals("ROLE_ORIENTADOR"));
+        boolean isEstudiante = usuarioLogueado.getUserRoles().stream().anyMatch(userRole -> userRole.getRole().getName().equals("ROLE_ESTUDIANTE"));
+
+        if (isOrientador) {
+            // Si el usuario es un orientador, obtener propuestas asociadas al orientador
             propostas = propostaRepository.findByOrientador(usuarioLogueado);
-        } else if (usuarioLogueado.getUserRoles().stream().anyMatch(r -> r.getRole().equals("ROLE_ESTUDIANTE"))) {
+        } else if (isEstudiante) {
+            // Si el usuario es un estudiante, obtener propuestas asociadas al estudiante
             propostas = propostaRepository.findByEstudante(usuarioLogueado);
         } else {
+            // Si el usuario no tiene ninguno de los roles anteriores, obtener todas las propuestas
             propostas = propostaRepository.findAll();
         }
 
         mv.addObject("propostas", propostas);
         return mv;
     }
+
 
     @RequestMapping(value="/editarProposta/{id}", method=RequestMethod.GET)
     public String editar(@PathVariable("id") Long id, Model model) {

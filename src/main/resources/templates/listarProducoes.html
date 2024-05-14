@@ -38,7 +38,7 @@
             </ol>
         </nav>
         <main class="d-flex flex-nowrap">
-            <th:block th:include="menu"></th:block>
+            <th:block th:if="${#authorization.expression('hasAnyRole(''ROLE_ESTUDIANTE'', ''ROLE_ADMIN'', ''ROLE_ORIENTADOR'')')}" th:include="menu"></th:block>
             <div class="container">
                 <div class="p-3 bg-body-secondary border-success border-top border-5 text-success fs-5">
                     Lista de Produções Científicas
@@ -112,8 +112,8 @@
                         <th class="table-success text-center" style="display: none;">Ano</th>
                         <th class="table-success text-center" style="display: none;">Tipo</th>
                         <th class="table-success text-center" style="display: none;">Orientador</th>
-                        <th class="table-success text-center">Editar</th>
-                        <th class="table-success text-center">Excluir</th>
+                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="table-success text-center">Editar</th>
+                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="table-success text-center">Excluir</th>
                         <th class="table-success text-center">Ver mais</th>
                     </tr>
                     </thead>
@@ -126,8 +126,8 @@
                         <td style="display: none;" th:text="${producao.ano}"></td>
                         <td style="display: none;" th:text="${producao.tipo}"></td>
                         <td style="display: none;" th:text="${producao.proposta.orientador.name}"></td>
-                        <td><a th:href="@{/editarProducao/{id} (id=${producao.id})}">Editar</a></td>
-                        <td><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');">Excluir</a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/editarProducao/{id} (id=${producao.id})}">Editar</a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');">Excluir</a></td>
                         <td><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}">Ver mais</a></td>
                     </tr>
                     </tbody>

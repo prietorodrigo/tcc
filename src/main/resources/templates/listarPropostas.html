@@ -52,7 +52,7 @@
                 </div>
                 <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
                     <div class="col-md-6">
-                        <div class="d-flex gap-2 mb-3 justify-content-md-end">
+                        <div th:if="${not #authorization.expression('hasRole(''ROLE_ORIENTADOR'')')}" class="d-flex gap-2 mb-3 justify-content-md-end">
                             <a class="btn btn-outline-success btn-sm" href="/novaProposta">
                                 <i class="bi bi-plus-square"></i>
                                 Nova proposta
@@ -71,9 +71,9 @@
                                 <li class="list-group-item" th:text="${'Área: ' + proposta.area.nome}"></li>
                             </ul>
                             <div class="card-body" style="display: flex; justify-content: space-between;">
-                                <a th:href="@{/editarProposta/{id} (id=${proposta.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i> Editar</a>
-                                <a th:href="@{/excluirProposta/{id} (id=${proposta.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta Proposta?');" title="Excluir"><i class="bi bi-trash"></i> Excluir</a>
-                                <a th:href="@{/novaProducao/{id} (id=${proposta.id})}" class="btn btn-outline-success" title="Aprovar"><i class="bi bi-journal-check"></i> Aprovar</a>
+                                <a th:if="${not #authorization.expression('hasRole(''ROLE_ORIENTADOR'')')}" th:href="@{/editarProposta/{id} (id=${proposta.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i> Editar</a>
+                                <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/excluirProposta/{id} (id=${proposta.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta Proposta?');" title="Excluir"><i class="bi bi-trash"></i> Excluir</a>
+                                <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/novaProducao/{id} (id=${proposta.id})}" class="btn btn-outline-success" title="Aprovar"><i class="bi bi-journal-check"></i> Aprovar</a>
                                 <a th:if="${proposta.aceitada}" th:href="@{'/listarPropostas/' + ${proposta.id} + '?format=pdf'}" target="_blank" class="btn btn-outline-danger" title="Baixar termo de compromisso"><i class="bi bi-file-pdf"></i> Termo</a>
                                 <form th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}"
                                       th:action="@{'/aceitarProposta/' + ${proposta.id}}"
