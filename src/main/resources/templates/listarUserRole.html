@@ -41,7 +41,7 @@
                     Roles do usuário
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div class="col-md-6">
                         <form th:action="@{/listarUserRole/} + ${id}" method="post">
                             <div class="input-group mb-3">
@@ -65,7 +65,7 @@
                                     <tr th:each="userRole : ${userRoles}">
                                         <td th:text="${userRole.user.name}"></td>
                                         <td th:text="${userRole.role.name}"></td>
-                                        <td><a th:href="@{/excluirUserRole/{id} (id=${userRole.id})}" onclick="return confirm('Tem certeza que deseja excluir este rol?');"><i class="bi bi-trash text-danger" title="Excluir"></i></a></td>
+                                        <td><a th:href="@{/excluirUserRole/{id} (id=${userRole.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este rol?');" title="Excluir"><i class="bi bi-trash"></i> Excluir</a></td>
                                     </tr>
                                 </tbody>
                             </table>

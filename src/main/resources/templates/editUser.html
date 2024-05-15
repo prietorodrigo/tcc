@@ -42,7 +42,7 @@
                     Editar Usuário
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div class="col-md-6">
                         <form th:action="@{/editUser/{id}(id=${user.id})}" method="post" enctype="multipart/form-data" th:object="${user}">
                             <div class="input-group mb-3">

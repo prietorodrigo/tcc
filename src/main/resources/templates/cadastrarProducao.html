@@ -42,12 +42,12 @@
                     Cadastro de Produção Científica</h2>
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div>
                         <form method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Ano:</span>
-                                <select class="form-control form-control-sm" id="ano" name="ano"></select>
+                                <select class="form-select" id="ano" name="ano"></select>
                                 <script>
                                         // Obtener el año actual
                                         var ano_actual = new Date().getFullYear();
@@ -92,6 +92,7 @@
                                     <option value="Resenha">Resenha</option>
                                     <option value="Resumo">Resumo</option>
                                     <option value="Tese">Tese</option>
+                                    <option value="Outro">Outro</option>
                                 </select>
                             </div>
                             <div class="input-group mb-3">

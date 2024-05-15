@@ -42,9 +42,22 @@
                         <i class="bi bi-box-arrow-in-right"></i>
                     </a>
                 </nav>
-                <br /><br />
-                <h1>Bem-vindo ao Sistema de Gestão da Produção Científica</h1>
-                <img th:src="${wordCloudImagePath}" alt="Word Cloud Image">
+                <div class="col-lg-8 mx-auto p-4 py-md-5">
+                    <main>
+                        <h1 class="text-body-emphasis">Bem-vindo ao Sistema de Gestão de Produção Científica</h1>
+                        <p class="fs-5 col-md-8">Plataforma web que permite o gerenciamento, a busca e a visualização da produção científica,
+                            bem como a facilitação do processo seletivo de temas e orientadores de TCC no contexto do Instituto Federal de
+                            Educação, Ciência e Tecnologia Sul-riograndense (IFSul) Campus Santana do Livramento.</p>
+                        <div class="mb-5">
+                            <a href="/listarProducoes" class="btn btn-primary btn-lg px-4">Produções Científicas</a>
+                        </div>
+                        <hr class="col-3 col-md-2 mb-5">
+                        <div class="row g-5">
+                            <h2 class="text-body-emphasis">Nuvem de palavras</h2>
+                            <img th:src="${wordCloudImagePath}" alt="Word Cloud Image">
+                        </div>
+                    </main>
+                </div>
             </div>
         </main>
     </div>

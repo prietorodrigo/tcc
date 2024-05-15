@@ -42,7 +42,7 @@
                     Editar Produção Científica
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div>
                         <form method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
@@ -64,16 +64,17 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Gênero acadêmico-científico:</span>
                                 <select class="form-control form-control-sm" id="tipo" name="tipo">
-                                    <option value="Artigo científico" th:selected="${tipo eq 'artigo'}">Artigo científico</option>
-                                    <option value="Dissertação" th:selected="${tipo eq 'dissertacao'}">Dissertação</option>
-                                    <option value="Ensaio" th:selected="${tipo eq 'ensaio'}">Ensaio</option>
-                                    <option value="Fichamento" th:selected="${tipo eq 'fichamento'}">Fichamento</option>
-                                    <option value="Monografia" th:selected="${tipo eq 'monografia'}">Monografia</option>
-                                    <option value="Projeto de pesquisa" th:selected="${tipo eq 'projeto'}">Projeto de pesquisa</option>
-                                    <option value="Relatório" th:selected="${tipo eq 'relatorio'}">Relatório</option>
-                                    <option value="Resenha" th:selected="${tipo eq 'resenha'}">Resenha</option>
-                                    <option value="Resumo" th:selected="${tipo eq 'resumo'}">Resumo</option>
-                                    <option value="Tese" th:selected="${tipo eq 'tese'}">Tese</option>
+                                    <option value="Artigo científico" th:selected="${tipo eq 'Artigo científico'}">Artigo científico</option>
+                                    <option value="Dissertação" th:selected="${tipo eq 'Dissertação'}">Dissertação</option>
+                                    <option value="Ensaio" th:selected="${tipo eq 'Ensaio'}">Ensaio</option>
+                                    <option value="Fichamento" th:selected="${tipo eq 'Fichamento'}">Fichamento</option>
+                                    <option value="Monografia" th:selected="${tipo eq 'Monografia'}">Monografia</option>
+                                    <option value="Projeto de pesquisa" th:selected="${tipo eq 'Projeto de pesquisa'}">Projeto de pesquisa</option>
+                                    <option value="Relatório" th:selected="${tipo eq 'Relatório'}">Relatório</option>
+                                    <option value="Resenha" th:selected="${tipo eq 'Resenha'}">Resenha</option>
+                                    <option value="Resumo" th:selected="${tipo eq 'Resumo'}">Resumo</option>
+                                    <option value="Tese" th:selected="${tipo eq 'Tese'}">Tese</option>
+                                    <option value="Outro" th:selected="${tipo eq 'Outro'}">Tese</option>
                                 </select>
                             </div>
                             <div class="input-group mb-3">

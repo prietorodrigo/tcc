@@ -42,12 +42,20 @@
                     Editar Curso
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div class="col-md-6">
                         <form method="post">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Nome:</span>
                                 <input type="text" class="form-control form-control-sm" id="nome" name="nome" th:value="${nome}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Abreviatura:</span>
+                                <input type="text" class="form-control form-control-sm" id="abreviatura" name="abreviatura" th:value="${abreviatura}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Disciplinas de TCC:</span>
+                                <input type="text" class="form-control form-control-sm" id="disciplinastcc" name="disciplinastcc" th:value="${disciplinastcc}">
                             </div>
                             <button type="submit" class="btn btn-primary">Editar</button>
                         </form>

@@ -40,7 +40,7 @@
                     Lista de Áreas
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div class="col-md-6">
                         <div class="d-flex gap-2 mb-3 justify-content-md-end">
                             <a class="btn btn-outline-success btn-sm" href="/novaArea">
@@ -59,8 +59,8 @@
                                 <tbody class="table-group-divider">
                                     <tr th:each="area : ${areas}">
                                         <td th:text = ${area.nome}></td>
-                                        <td><a th:href="@{/editarArea/{id} (id=${area.id})}"><i class="bi bi-pencil-square" title="Editar"></i></a></td>
-                                        <td><a th:href="@{/excluirArea/{id} (id=${area.id})}" onclick="return confirm('Tem certeza que deseja excluir esta área?');"><i class="bi bi-trash text-danger" title="Excluir"></i></a></td>
+                                        <td><a th:href="@{/editarArea/{id} (id=${area.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
+                                        <td><a th:href="@{/excluirArea/{id} (id=${area.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta área?');" title="Excluir"><i class="bi bi-trash"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>

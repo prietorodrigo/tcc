@@ -23,7 +23,7 @@
 </head>
 <body>
     <th:block th:include="header"></th:block>
-    <div style="padding:20px">
+    <div class="container" style="padding:20px">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
             <ol class="breadcrumb" style="padding-left:16px">
                 <li class="active" style="padding-right:8px">Você está aqui: </li>
@@ -35,13 +35,13 @@
         </nav>
         <main class="d-flex flex-nowrap">
             <th:block th:include="menu"></th:block>
-            <div>
+            <div class="container">
                 <div class="p-3 bg-body-secondary border-success border-top border-5 text-success fs-5">
                     Usuários cadastrados
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
-                    <div>
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
+                    <div class="col-md-12">
                         <div class="d-flex gap-2 mb-3 justify-content-md-end">
                             <a class="btn btn-outline-success btn-sm" aria-current="page" th:href="@{/register}">
                                 <i class="bi bi-plus-square"></i>
@@ -72,18 +72,20 @@
                                         <td th:text="${user.siape}"></td>
                                         <td>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item" th:each="role : ${user.roleName}" th:text="${role}"></li>
+                                                <li class="list-group-item" th:each="role : ${user.roleName}">
+                                                    <span th:text="${#strings.capitalize(#strings.toLowerCase(role.substring(role.indexOf('_') + 1)))}"></span>
+                                                </li>
                                             </ul>
                                         </td>
                                         <td>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item" th:each="curso : ${cursosPorUsuario[userIndex.index]}" th:text="${curso.nome}"></li>
+                                                <li class="list-group-item" th:each="curso : ${cursosPorUsuario[userIndex.index]}" th:text="${curso.abreviatura}"></li>
                                             </ul>
                                         </td>
                                         <td><img th:src="@{/foto/{foto}(foto=${user.foto})}" width="50px"/></td>
-                                        <td><a th:href="@{/editUser/{id} (id=${user.id})}"><i class="bi bi-pencil-square" title="Editar"></i></a></td>
-                                        <td><a th:href="@{/listarUserRole/{id} (id=${user.id})}"><i class="bi bi-person-gear" title="Roles"></i></a></td>
-                                        <td><a th:href="@{/listarUsuariosCursos/{id} (id=${user.id})}"><i class="bi bi-mortarboard" title="Cursos"></i></a></td>
+                                        <td><a th:href="@{/editUser/{id} (id=${user.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
+                                        <td><a th:href="@{/listarUserRole/{id} (id=${user.id})}" class="btn btn-outline-primary" title="Roles"><i class="bi bi-person-gear"></i></a></td>
+                                        <td><a th:href="@{/listarUsuariosCursos/{id} (id=${user.id})}" class="btn btn-outline-primary" title="Cursos"><i class="bi bi-mortarboard"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>

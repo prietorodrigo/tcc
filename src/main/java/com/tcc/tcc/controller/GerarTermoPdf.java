@@ -59,7 +59,7 @@ public class GerarTermoPdf extends AbstractPdfView {
         Paragraph cabecalho = new Paragraph();
         cabecalho.setFont(FontFactory.getFont(FontFactory.HELVETICA, 10));
         cabecalho.add("Instituto Federal de Educação, Ciência e Tecnologia Sul-rio-grandense");
-        cabecalho.add("\nCurso Superior de Tecnologias em Análise e Desenvolvimento de Sistemas");
+        cabecalho.add("\nCurso Superior de " + proposta.getCurso().getNome());
         cabecalho.add("\nCampus Santana do Livramento");
         cabecalho.setAlignment(Element.ALIGN_CENTER);
         document.add(cabecalho);
@@ -72,15 +72,14 @@ public class GerarTermoPdf extends AbstractPdfView {
         Paragraph content = new Paragraph();
         content.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
         content.add("\n\nEu, " + proposta.getEstudante().getName() + ", matrícula " + proposta.getEstudante().getMatricula()
-                + ", aluno(a) do Curso de Tecnologias em Análise e Desenvolvimento de Sistemas, solicito a " +
+                + ", aluno(a) do Curso de " + proposta.getCurso().getNome() + ", solicito a " +
                 "orientação do(a) Professor(a) " + proposta.getOrientador().getName() + " para o desenvolvimento do " +
                 "Trabalho de Conclusão de Curso, com área/tema previsto " +
                 proposta.getArea().getNome()+ ", a ser desenvolvido no âmbito das disciplinas " +
-                "de Práticas em Análise em Desenvolvimento de Sistemas I e II. Comprometo-me a ser assíduo às " +
+                "de "+ proposta.getCurso().getDisciplinastcc() + ". Comprometo-me a ser assíduo às " +
                 "orientações e compromissos firmados com meu orientador(a) bem como à cumprir as " +
                 "regulamentações e prazos previstos pelo Regulamento de Trabalho de Conclusão de Curso e " +
-                "pelos Planos de Ensino das disciplinas de Práticas em Análise e Desenvolvimento de Sistemas I " +
-                "e II.");
+                "pelos Planos de Ensino das disciplinas de "+ proposta.getCurso().getDisciplinastcc() +".");
         content.setAlignment(Element.ALIGN_JUSTIFIED);
         document.add(content);
 
@@ -92,10 +91,10 @@ public class GerarTermoPdf extends AbstractPdfView {
 
         Paragraph content2 = new Paragraph();
         content2.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
-        content2.add("\n\nEu, " + proposta.getOrientador().getName() + ", SIAPE " + proposta.getOrientador().getSiape() + ", Professor(a) do Curso de" +
-                " Tecnologias em Análise e Desenvolvimento de Sistemas, me comprometo a orientar o Trabalho " +
+        content2.add("\n\nEu, " + proposta.getOrientador().getName() + ", SIAPE " + proposta.getOrientador().getSiape() + ", Professor(a) do Curso de " +
+                proposta.getCurso().getNome() + ", me comprometo a orientar o Trabalho " +
                 "de Conclusão de Curso do(a) aluno(a) " + proposta.getEstudante().getName() + ", a ser desenvolvido " +
-                "no âmbito das disciplinas de Práticas em Análise e Desenvolvimento de Sistemas I e II.");
+                "no âmbito das disciplinas de " + proposta.getCurso().getDisciplinastcc() +".");
         content2.setAlignment(Element.ALIGN_JUSTIFIED);
         document.add(content2);
 

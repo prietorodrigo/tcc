@@ -52,6 +52,8 @@ public class CursoController {
         ModelAndView mv = new ModelAndView("editarCurso");
         Optional<Curso> curso = cursoRepository.findById(id);
         mv.addObject("nome", curso.get().getNome());
+        mv.addObject("abreviatura", curso.get().getAbreviatura());
+        mv.addObject("disciplinastcc", curso.get().getDisciplinastcc());
         mv.addObject("id", curso.get().getId());
         return mv;
     }
@@ -60,6 +62,8 @@ public class CursoController {
     public String editarCursoBanco(Curso curso, RedirectAttributes msg) {
         Curso cursoExistente = cursoRepository.findById(curso.getId()).orElse(null);
         cursoExistente.setNome(curso.getNome());
+        cursoExistente.setAbreviatura(curso.getAbreviatura());
+        cursoExistente.setDisciplinastcc(curso.getDisciplinastcc());
         cursoRepository.save(cursoExistente);
         return "redirect:/listarCursos";
     }

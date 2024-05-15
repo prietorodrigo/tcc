@@ -40,8 +40,8 @@
                     Lista de Cursos
                 </div>
                 <br>
-                <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
-                    <div class="col-md-6">
+                <div class="d-flex justify-content-center" style="min-height: 75vh;">
+                    <div class="col-md-8">
                         <div class="d-flex gap-2 mb-3 justify-content-md-end">
                             <a class="btn btn-outline-success btn-sm" href="/novoCurso">
                                 <i class="bi bi-plus-square"></i>
@@ -53,14 +53,18 @@
                                 <thead class="table-success text-center">
                                     <tr>
                                         <th scope="col">Nome</th>
+                                        <th scope="col">Abreviatura</th>
+                                        <th scope="col">Disciplinas de TCC</th>
                                         <th scope="col" colspan="2">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
                                     <tr th:each="curso : ${cursos}">
                                         <td th:text = ${curso.nome}></td>
-                                        <td><a th:href="@{/editarCurso/{id} (id=${curso.id})}"><i class="bi bi-pencil-square" title="Editar"></i></a></td>
-                                        <td><a th:href="@{/excluirCurso/{id} (id=${curso.id})}" onclick="return confirm('Tem certeza que deseja excluir este curso?');"><i class="bi bi-trash text-danger" title="Excluir"></i></a></td>
+                                        <td th:text = ${curso.abreviatura}></td>
+                                        <td th:text = ${curso.disciplinastcc}></td>
+                                        <td><a th:href="@{/editarCurso/{id} (id=${curso.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
+                                        <td><a th:href="@{/excluirCurso/{id} (id=${curso.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este curso?');" title="Excluir"><i class="bi bi-trash"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>

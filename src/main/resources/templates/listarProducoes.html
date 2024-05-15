@@ -44,62 +44,67 @@
                     Lista de Produções Científicas
                 </div>
                 <br>
-                <select id="semestreInput">
-                    <option value="">Buscar por semestre</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-                <br>
-                <select id="anoInput">
-                    <option value="">Buscar por ano</option>
-                </select>
-                <script>
-                    // Obtener el elemento select
-                    var select_ano = document.getElementById("anoInput");
+                <div class="mb-3">
+                    <select class="form-control form-control-sm" id="semestreInput" style="width: 250px;">
+                        <option value="">Buscar por semestre</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select class="form-control form-control-sm" id="anoInput" style="width: 250px;">
+                        <option value="">Buscar por ano</option>
+                    </select>
+                    <script>
+                        // Obtener el elemento select
+                        var select_ano = document.getElementById("anoInput");
 
-                    // Agregar opciones de años desde 2006 hasta 2100
-                    for (var ano = 2006; ano <= 2100; ano++) {
-                        // Crear una nueva opción
-                        var opcion = document.createElement("option");
-                        opcion.text = ano;
-                        opcion.value = ano;
+                        // Agregar opciones de años desde 2006 hasta 2100
+                        for (var ano = 2006; ano <= 2100; ano++) {
+                            // Crear una nueva opción
+                            var opcion = document.createElement("option");
+                            opcion.text = ano;
+                            opcion.value = ano;
 
-                        // Agregar la opción al select
-                        select_ano.add(opcion);
-                    }
-                </script>
-                <br>
-                <select id="tipoInput">
-                    <option value="">Buscar por género académico</option>
-                    <option value="Artigo científico">Artigo científico</option>
-                    <option value="Dissertação">Dissertação</option>
-                    <option value="Ensaio">Ensaio</option>
-                    <option value="Fichamento">Fichamento</option>
-                    <option value="Monografia">Monografia</option>
-                    <option value="Projeto de pesquisa">Projeto de pesquisa</option>
-                    <option value="Relatório">Relatório</option>
-                    <option value="Resenha">Resenha</option>
-                    <option value="Resumo">Resumo</option>
-                    <option value="Tese">Tese</option>
-                </select>
-                <br>
-                <input id="orientadorInput" type="text" placeholder="Buscar por orientador">
-                <br>
+                            // Agregar la opción al select
+                            select_ano.add(opcion);
+                        }
+                    </script>
+                </div>
+                <div class="mb-3">
+                    <select class="form-control form-control-sm" id="tipoInput" style="width: 250px;">
+                        <option value="">Buscar por género académico</option>
+                        <option value="Artigo científico">Artigo científico</option>
+                        <option value="Dissertação">Dissertação</option>
+                        <option value="Ensaio">Ensaio</option>
+                        <option value="Fichamento">Fichamento</option>
+                        <option value="Monografia">Monografia</option>
+                        <option value="Projeto de pesquisa">Projeto de pesquisa</option>
+                        <option value="Relatório">Relatório</option>
+                        <option value="Resenha">Resenha</option>
+                        <option value="Resumo">Resumo</option>
+                        <option value="Tese">Tese</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input class="form-control form-control-sm" id="orientadorInput" type="text" placeholder="Buscar por orientador" style="width: 250px;">
+                </div>
                 <table id="myTable" class="table table-hover">
                     <thead>
                     <tr>
                         <th>
-                            <input id="temaInput" type="text" placeholder="Buscar por título">
+                            <input class="form-control form-control-sm" id="temaInput" type="text" placeholder="Buscar por título">
                         </th>
                         <th>
-                            <input id="estudanteInput" type="text" placeholder="Buscar por autor">
+                            <input class="form-control form-control-sm" id="estudanteInput" type="text" placeholder="Buscar por autor">
                         </th>
                         <th>
-                            <input id="keywordsInput" type="text" placeholder="Buscar por palavra chave">
+                            <input class="form-control form-control-sm" id="keywordsInput" type="text" placeholder="Buscar por palavra chave">
                         </th>
-                        <th>
+                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                         </th>
-                        <th>
+                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                         </th>
                         <th>
                         </th>
@@ -126,9 +131,9 @@
                         <td style="display: none;" th:text="${producao.ano}"></td>
                         <td style="display: none;" th:text="${producao.tipo}"></td>
                         <td style="display: none;" th:text="${producao.proposta.orientador.name}"></td>
-                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/editarProducao/{id} (id=${producao.id})}">Editar</a></td>
-                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');">Excluir</a></td>
-                        <td><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}">Ver mais</a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/editarProducao/{id} (id=${producao.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');" title="Excluir"><i class="bi bi-trash"></i></a></td>
+                        <td><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}" class="btn btn-outline-success" title="Ver mais"><i class="bi bi-eye"></i></a></td>
                     </tr>
                     </tbody>
                 </table>

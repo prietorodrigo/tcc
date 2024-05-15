@@ -16,6 +16,12 @@ public class Curso {
     @NotBlank
     private String nome;
 
+    @NotBlank
+    private String abreviatura;
+
+    @NotBlank
+    private String disciplinastcc;
+
     @OneToMany(mappedBy = "curso")
     private List<UsuarioCurso> usuarioCursos = new ArrayList<>();
 
@@ -36,6 +42,22 @@ public class Curso {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getAbreviatura() {
+        return abreviatura;
+    }
+
+    public void setAbreviatura(String abreviatura) {
+        this.abreviatura = abreviatura;
+    }
+
+    public String getDisciplinastcc() {
+        return disciplinastcc;
+    }
+
+    public void setDisciplinastcc(String disciplinastcc) {
+        this.disciplinastcc = disciplinastcc;
     }
 
     public List<UsuarioCurso> getUsuarioCursos() {
