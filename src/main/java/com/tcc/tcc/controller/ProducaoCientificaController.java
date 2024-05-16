@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class ProducaoCientificaController {
         Proposta proposta = propostaOptional.get();
         if(result.hasErrors()) {
             msg.addFlashAttribute("erro", "Erro ao cadastrar. Por favor, preencha todos os campos");
-            return "redirect:/vermaisVaga/{id}";
+            return "redirect:/novaProducao/{id}";
         }
 
         try {
@@ -60,6 +61,7 @@ public class ProducaoCientificaController {
             System.out.println("Erro PDF");
         }
 
+        producaoCientifica.setData(LocalDate.now());
         producaoCientifica.setProposta(proposta);
 
         producaoCientificaRepository.save(producaoCientifica);
@@ -113,6 +115,11 @@ public class ProducaoCientificaController {
         String palavrasChaves = producaoCientifica.get().getPalavrasChaves();
         List<String> palavrasChavesList = Arrays.asList(palavrasChaves.split("-"));
         mv.addObject("palavrasChavesList", palavrasChavesList); // Pasar la lista al modelo
+        mv.addObject("banca", producaoCientifica.get().getBanca());
+        String banca = producaoCientifica.get().getBanca();
+        List<String> bancaList = Arrays.asList(banca.split("-"));
+        mv.addObject("bancaList", bancaList); // Pasar la lista al modelo
+        mv.addObject("url", producaoCientifica.get().getUrl());
         mv.addObject("id", producaoCientifica.get().getId());
         return mv;
     }
@@ -127,6 +134,8 @@ public class ProducaoCientificaController {
         producaoExistente.setResumo(producao.getResumo());
         producaoExistente.setApresentacoes(producao.getApresentacoes());
         producaoExistente.setPalavrasChaves(producao.getPalavrasChaves());
+        producaoExistente.setBanca(producao.getBanca());
+        producaoExistente.setUrl(producao.getUrl());
         producaoCientificaRepository.save(producaoExistente);
         return "redirect:/listarProducoes";
     }
@@ -149,6 +158,9 @@ public class ProducaoCientificaController {
         mv.addObject("pdf", producaoOpt.get().getPdf());
         mv.addObject("apresentacoes", producaoOpt.get().getApresentacoes());
         mv.addObject("palavrasChaves", producaoOpt.get().getPalavrasChaves());
+        mv.addObject("data", producaoOpt.get().getData());
+        mv.addObject("banca", producaoOpt.get().getBanca());
+        mv.addObject("url", producaoOpt.get().getUrl());
         if (producaoOpt.isPresent()) {
             ProducaoCientifica producao = producaoOpt.get();
             mv.addObject("producao", producao);

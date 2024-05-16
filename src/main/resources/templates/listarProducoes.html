@@ -44,55 +44,60 @@
                     Lista de Produções Científicas
                 </div>
                 <br>
-                <div class="mb-3">
-                    <select class="form-control form-control-sm" id="semestreInput" style="width: 250px;">
-                        <option value="">Buscar por semestre</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <select class="form-control form-control-sm" id="anoInput" style="width: 250px;">
-                        <option value="">Buscar por ano</option>
-                    </select>
-                    <script>
-                        // Obtener el elemento select
-                        var select_ano = document.getElementById("anoInput");
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control form-control-sm" id="semestreInput" style="width: 250px;">
+                            <option value="">Buscar por semestre</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control form-control-sm" id="anoInput" style="width: 250px;">
+                            <option value="">Buscar por ano</option>
+                        </select>
+                        <script>
+                            // Obtener el elemento select
+                            var select_ano = document.getElementById("anoInput");
 
-                        // Agregar opciones de años desde 2006 hasta 2100
-                        for (var ano = 2006; ano <= 2100; ano++) {
-                            // Crear una nueva opción
-                            var opcion = document.createElement("option");
-                            opcion.text = ano;
-                            opcion.value = ano;
+                            // Agregar opciones de años desde 2006 hasta 2100
+                            for (var ano = 2006; ano <= 2100; ano++) {
+                                // Crear una nueva opción
+                                var opcion = document.createElement("option");
+                                opcion.text = ano;
+                                opcion.value = ano;
 
-                            // Agregar la opción al select
-                            select_ano.add(opcion);
-                        }
-                    </script>
+                                // Agregar la opción al select
+                                select_ano.add(opcion);
+                            }
+                        </script>
+                    </div>
+                    <div class="col">
+                        <select class="form-control form-control-sm" id="tipoInput" style="width: 250px;">
+                            <option value="">Buscar por género académico</option>
+                            <option value="Artigo científico">Artigo científico</option>
+                            <option value="Dissertação">Dissertação</option>
+                            <option value="Ensaio">Ensaio</option>
+                            <option value="Fichamento">Fichamento</option>
+                            <option value="Monografia">Monografia</option>
+                            <option value="Projeto de pesquisa">Projeto de pesquisa</option>
+                            <option value="Relatório">Relatório</option>
+                            <option value="Resenha">Resenha</option>
+                            <option value="Resumo">Resumo</option>
+                            <option value="Tese">Tese</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input class="form-control form-control-sm" id="orientadorInput" type="text" placeholder="Buscar por orientador" style="width: 250px;">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <select class="form-control form-control-sm" id="tipoInput" style="width: 250px;">
-                        <option value="">Buscar por género académico</option>
-                        <option value="Artigo científico">Artigo científico</option>
-                        <option value="Dissertação">Dissertação</option>
-                        <option value="Ensaio">Ensaio</option>
-                        <option value="Fichamento">Fichamento</option>
-                        <option value="Monografia">Monografia</option>
-                        <option value="Projeto de pesquisa">Projeto de pesquisa</option>
-                        <option value="Relatório">Relatório</option>
-                        <option value="Resenha">Resenha</option>
-                        <option value="Resumo">Resumo</option>
-                        <option value="Tese">Tese</option>
-                        <option value="Outro">Outro</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <input class="form-control form-control-sm" id="orientadorInput" type="text" placeholder="Buscar por orientador" style="width: 250px;">
-                </div>
+                <br>
                 <table id="myTable" class="table table-hover">
                     <thead>
                     <tr>
+                        <th>
+                        </th>
                         <th>
                             <input class="form-control form-control-sm" id="temaInput" type="text" placeholder="Buscar por título">
                         </th>
@@ -110,6 +115,7 @@
                         </th>
                     </tr>
                     <tr>
+                        <th class="table-success text-center">Data</th>
                         <th class="table-success text-center">Tema</th>
                         <th class="table-success text-center">Estudante</th>
                         <th class="table-success text-center">Palavras chaves</th>
@@ -124,6 +130,7 @@
                     </thead>
                     <tbody class="table-group-divider">
                     <tr th:each="producao : ${producoes}">
+                        <td th:text="${#temporals.format(producao.data, 'dd/MM/yyyy')}"></td>
                         <td th:text="${producao.proposta.tema}"></td>
                         <td th:text="${producao.proposta.estudante.name}"></td>
                         <td th:text="${producao.palavrasChaves}"></td>
@@ -131,9 +138,9 @@
                         <td style="display: none;" th:text="${producao.ano}"></td>
                         <td style="display: none;" th:text="${producao.tipo}"></td>
                         <td style="display: none;" th:text="${producao.proposta.orientador.name}"></td>
-                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/editarProducao/{id} (id=${producao.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
-                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');" title="Excluir"><i class="bi bi-trash"></i></a></td>
-                        <td><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}" class="btn btn-outline-success" title="Ver mais"><i class="bi bi-eye"></i></a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="text-center"><a th:href="@{/editarProducao/{id} (id=${producao.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="text-center"><a th:href="@{/excluirProducao/{id} (id=${producao.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta Produção Científica?');" title="Excluir"><i class="bi bi-trash"></i></a></td>
+                        <td class="text-center"><a th:href="@{/vermaisProducao/{id} (id=${producao.id})}" class="btn btn-outline-success" title="Ver mais"><i class="bi bi-eye"></i></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -146,25 +153,25 @@
                         }
                     });
                     $('#temaInput').on('keyup', function () {
-                        table.column(0).search(this.value).draw();
-                    });
-                    $('#estudanteInput').on('keyup', function () {
                         table.column(1).search(this.value).draw();
                     });
-                    $('#keywordsInput').on('keyup', function () {
+                    $('#estudanteInput').on('keyup', function () {
                         table.column(2).search(this.value).draw();
                     });
-                    $('#semestreInput').on('change', function () {
+                    $('#keywordsInput').on('keyup', function () {
                         table.column(3).search(this.value).draw();
                     });
-                    $('#anoInput').on('change', function () {
+                    $('#semestreInput').on('change', function () {
                         table.column(4).search(this.value).draw();
                     });
-                    $('#tipoInput').on('change', function () {
+                    $('#anoInput').on('change', function () {
                         table.column(5).search(this.value).draw();
                     });
-                    $('#orientadorInput').on('keyup', function () {
+                    $('#tipoInput').on('change', function () {
                         table.column(6).search(this.value).draw();
+                    });
+                    $('#orientadorInput').on('keyup', function () {
+                        table.column(7).search(this.value).draw();
                     });
                 });
             </script>

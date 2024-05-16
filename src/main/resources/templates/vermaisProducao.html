@@ -44,6 +44,10 @@
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
+                            <th>Data</th>
+                            <td th:text="${#temporals.format(data, 'dd/MM/yyyy')}"></td>
+                        </tr>
+                        <tr>
                             <th>Semestre</th>
                             <td th:text="${semestre}"></td>
                         </tr>
@@ -94,6 +98,14 @@
                         <tr>
                             <th>Orientador</th>
                             <td th:text="${proposta.orientador.name}"></td>
+                        </tr>
+                        <tr>
+                            <th>Banca</th>
+                            <td th:text="${banca}"></td>
+                        </tr>
+                        <tr>
+                            <th>URL</th>
+                            <td><a th:href="${url}" target="_blank" th:text="${url}"></a></td>
                         </tr>
                     </table>
                 </div>

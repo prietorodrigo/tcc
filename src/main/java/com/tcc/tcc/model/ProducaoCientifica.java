@@ -1,8 +1,10 @@
 package com.tcc.tcc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,14 @@ public class ProducaoCientifica {
     @NotBlank
     @Lob
     private String palavrasChaves;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate data;
+
+    @Lob
+    private String banca;
+
+    private String url;
 
     @OneToOne
     @JoinColumn(name="proposta_id")
@@ -109,6 +119,30 @@ public class ProducaoCientifica {
 
     public void setPalavrasChaves(String palavrasChaves) {
         this.palavrasChaves = palavrasChaves;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public String getBanca() {
+        return banca;
+    }
+
+    public void setBanca(String banca) {
+        this.banca = banca;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Proposta getProposta() {

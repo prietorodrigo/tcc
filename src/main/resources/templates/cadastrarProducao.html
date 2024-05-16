@@ -126,6 +126,21 @@
                                 <label class="input-group-text" for="pdf">PDF:</label>
                                 <input type="file" class="form-control form-control-sm" name="file" id="pdf" multiple>
                             </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Banca:</span>
+                                <input type="hidden" id="banca" name="banca">
+                                <br>
+                                <span class="input-group-text">1:</span>
+                                <input type="text" class="form-control" id="banca1" name="banca1">
+                                <span class="input-group-text">2:</span>
+                                <input type="text" class="form-control" id="banca2" name="banca2">
+                                <span class="input-group-text">3:</span>
+                                <input type="text" class="form-control" id="banca3" name="banca3">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">URL:</span>
+                                <input type="text" class="form-control form-control-sm" id="url" name="url" placeholder="Digite a URL do sistema ou do código no GitHub">
+                            </div>
                             <script>
                                     function concatenateKeywords() {
                                       const palavraChave1 = document.getElementById("palavraChave1").value;
@@ -136,8 +151,16 @@
                                       const palavrasChavesConcatenadas = palavraChave1 + " - " + palavraChave2 + " - " + palavraChave3 + " - " + palavraChave4 + " - " + palavraChave5;
                                       document.getElementById("palavrasChaves").value = palavrasChavesConcatenadas;
                                     }
+
+                                    function concatenateBanca() {
+                                      const banca1 = document.getElementById("banca1").value;
+                                      const banca2 = document.getElementById("banca2").value;
+                                      const banca3 = document.getElementById("banca3").value;
+                                      const bancaConcatenada = banca1 + " - " + banca2 + " - " + banca3;
+                                      document.getElementById("banca").value = bancaConcatenada;
+                                    }
                             </script>
-                            <button type="submit" class="btn btn-primary" onclick="concatenateKeywords()">Enviar</button>
+                            <button type="submit" class="btn btn-primary" onclick="concatenateKeywords(); concatenateBanca()">Enviar</button>
                         </form>
                     </div>
                 </div>
