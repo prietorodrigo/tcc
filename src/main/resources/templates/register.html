@@ -96,6 +96,11 @@
                                 <p th:errors="*{siape}" th:if="${#fields.hasErrors('siape')}"></p>
                             </div>
                             <div class="input-group mb-3">
+                                <span class="input-group-text">Currículo Lattes:</span>
+                                <input class="form-control form-control-sm" id="lattes" name="lattes" placeholder="Digite a URL do Currículo Lattes" th:field="*{lattes}" type="text"/>
+                                <p th:errors="*{lattes}" th:if="${#fields.hasErrors('lattes')}"></p>
+                            </div>
+                            <div class="input-group mb-3">
                                 <span class="input-group-text">Tipo de Usuário:</span>
                                 <select class="form-control form-control-sm" id="roleName" name="roleName" th:field="*{roleName}">
                                     <option value="ROLE_ADMIN">Administrador</option>

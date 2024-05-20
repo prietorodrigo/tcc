@@ -46,6 +46,8 @@ public class Proposta {
 
     private boolean aceitada;
 
+    private boolean cadastrada;
+
     @OneToOne
     @JoinColumn(name="ideia_id")
     private Ideia ideia;
@@ -128,6 +130,14 @@ public class Proposta {
 
     public void setAceitada(boolean aceitada) {
         this.aceitada = aceitada;
+    }
+
+    public boolean isCadastrada() {
+        return cadastrada;
+    }
+
+    public void setCadastrada(boolean cadastrada) {
+        this.cadastrada = cadastrada;
     }
 
     public Ideia getIdeia() {

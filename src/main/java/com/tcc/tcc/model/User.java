@@ -31,6 +31,8 @@ public class User {
 
     private String siape;
 
+    private String lattes;
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles;
 
@@ -97,6 +99,14 @@ public class User {
 
     public void setSiape(String siape) {
         this.siape = siape;
+    }
+
+    public String getLattes() {
+        return lattes;
+    }
+
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
     }
 
     public Set<UserRole> getUserRoles() {

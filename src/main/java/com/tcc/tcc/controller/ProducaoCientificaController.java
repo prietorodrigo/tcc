@@ -63,6 +63,7 @@ public class ProducaoCientificaController {
 
         producaoCientifica.setData(LocalDate.now());
         producaoCientifica.setProposta(proposta);
+        proposta.setCadastrada(true);
 
         producaoCientificaRepository.save(producaoCientifica);
         msg.addFlashAttribute("sucesso", "Produção Científica cadastrada com sucesso.");
@@ -110,6 +111,8 @@ public class ProducaoCientificaController {
         mv.addObject("tipo", producaoCientifica.get().getTipo());
         mv.addObject("coorientador", producaoCientifica.get().getCoorientador());
         mv.addObject("resumo", producaoCientifica.get().getResumo());
+        mv.addObject("abstractt", producaoCientifica.get().getAbstractt());
+        mv.addObject("idioma", producaoCientifica.get().getIdioma());
         mv.addObject("apresentacoes", producaoCientifica.get().getApresentacoes());
         mv.addObject("palavrasChaves", producaoCientifica.get().getPalavrasChaves());
         String palavrasChaves = producaoCientifica.get().getPalavrasChaves();
@@ -132,6 +135,8 @@ public class ProducaoCientificaController {
         producaoExistente.setTipo(producao.getTipo());
         producaoExistente.setCoorientador(producao.getCoorientador());
         producaoExistente.setResumo(producao.getResumo());
+        producaoExistente.setAbstractt(producao.getAbstractt());
+        producaoExistente.setIdioma(producao.getIdioma());
         producaoExistente.setApresentacoes(producao.getApresentacoes());
         producaoExistente.setPalavrasChaves(producao.getPalavrasChaves());
         producaoExistente.setBanca(producao.getBanca());
@@ -155,6 +160,10 @@ public class ProducaoCientificaController {
         mv.addObject("tipo", producaoOpt.get().getTipo());
         mv.addObject("coorientador", producaoOpt.get().getCoorientador());
         mv.addObject("resumo", producaoOpt.get().getResumo());
+        mv.addObject("abstractt", producaoOpt.get().getAbstractt());
+        mv.addObject("idioma", producaoOpt.get().getIdioma());
+        mv.addObject("abstractt", producaoOpt.get().getAbstractt());
+        mv.addObject("idioma", producaoOpt.get().getIdioma());
         mv.addObject("pdf", producaoOpt.get().getPdf());
         mv.addObject("apresentacoes", producaoOpt.get().getApresentacoes());
         mv.addObject("palavrasChaves", producaoOpt.get().getPalavrasChaves());

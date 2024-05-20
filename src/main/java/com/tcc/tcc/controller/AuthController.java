@@ -126,6 +126,7 @@ public class AuthController {
         userDto.setEmail(user.getEmail());
         userDto.setMatricula(user.getMatricula());
         userDto.setSiape(user.getSiape());
+        userDto.setLattes(user.getLattes());
         Set<String> roleNames = user.getUserRoles().stream()
                 .map(userRole -> userRole.getRole().getName())
                 .collect(Collectors.toSet());
@@ -158,6 +159,7 @@ public class AuthController {
         existingUser.setEmail(userDto.getEmail());
         existingUser.setMatricula(userDto.getMatricula());
         existingUser.setSiape(userDto.getSiape());
+        existingUser.setLattes(userDto.getLattes());
 
         // Guardar los cambios en la base de datos
         userService.updateUser(existingUser);

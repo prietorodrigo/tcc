@@ -92,6 +92,12 @@
                                     <input type="checkbox" class="form-check-input mt-0" th:field="*{aceitada}" />
                                 </div>
                             </div>
+                            <div class="input-group mb-3" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                                <span class="input-group-text">Cadastrada:</span>
+                                <div class="input-group-text">
+                                    <input type="checkbox" class="form-check-input mt-0" th:field="*{cadastrada}" />
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
                     </div>

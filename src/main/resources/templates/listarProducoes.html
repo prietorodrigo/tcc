@@ -44,80 +44,107 @@
                     Lista de Produções Científicas
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col">
-                        <select class="form-control form-control-sm" id="semestreInput" style="width: 250px;">
-                            <option value="">Buscar por semestre</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select class="form-control form-control-sm" id="anoInput" style="width: 250px;">
-                            <option value="">Buscar por ano</option>
-                        </select>
-                        <script>
-                            // Obtener el elemento select
-                            var select_ano = document.getElementById("anoInput");
+                <div class="card">
+                    <div class="card-header">
+                        <div class="mb-1 row">
+                            <label class="col-sm-3 col-form-label">
+                                Buscar por título:
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control form-control-sm" id="temaInput" type="text" style="width: 250px;">
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <label class="col-sm-3 col-form-label">
+                                Buscar por autor:
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control form-control-sm" id="estudanteInput" type="text" style="width: 250px;">
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <label class="col-sm-3 col-form-label">
+                                Buscar por orientador:
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control form-control-sm" id="orientadorInput" type="text" style="width: 250px;">
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <label class="col-sm-3 col-form-label">
+                                Buscar por género académico:
+                            </label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-sm" id="tipoInput" style="width: 250px;">
+                                    <option value="">Todos</option>
+                                    <option value="Artigo científico">Artigo científico</option>
+                                    <option value="Dissertação">Dissertação</option>
+                                    <option value="Ensaio">Ensaio</option>
+                                    <option value="Fichamento">Fichamento</option>
+                                    <option value="Monografia">Monografia</option>
+                                    <option value="Projeto de pesquisa">Projeto de pesquisa</option>
+                                    <option value="Relatório">Relatório</option>
+                                    <option value="Resenha">Resenha</option>
+                                    <option value="Resumo">Resumo</option>
+                                    <option value="Tese">Tese</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <label class="col-sm-3 col-form-label">
+                                Buscar por ano:
+                            </label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-sm" id="anoInput" style="width: 250px;">
+                                    <option value="">Todos</option>
+                                </select>
+                                <script>
+                                    // Obtener el elemento select
+                                    var select_ano = document.getElementById("anoInput");
 
-                            // Agregar opciones de años desde 2006 hasta 2100
-                            for (var ano = 2006; ano <= 2100; ano++) {
-                                // Crear una nueva opción
-                                var opcion = document.createElement("option");
-                                opcion.text = ano;
-                                opcion.value = ano;
+                                    // Agregar opciones de años desde 2006 hasta 2100
+                                    for (var ano = 2006; ano <= 2100; ano++) {
+                                        // Crear una nueva opción
+                                        var opcion = document.createElement("option");
+                                        opcion.text = ano;
+                                        opcion.value = ano;
 
-                                // Agregar la opción al select
-                                select_ano.add(opcion);
-                            }
-                        </script>
-                    </div>
-                    <div class="col">
-                        <select class="form-control form-control-sm" id="tipoInput" style="width: 250px;">
-                            <option value="">Buscar por género académico</option>
-                            <option value="Artigo científico">Artigo científico</option>
-                            <option value="Dissertação">Dissertação</option>
-                            <option value="Ensaio">Ensaio</option>
-                            <option value="Fichamento">Fichamento</option>
-                            <option value="Monografia">Monografia</option>
-                            <option value="Projeto de pesquisa">Projeto de pesquisa</option>
-                            <option value="Relatório">Relatório</option>
-                            <option value="Resenha">Resenha</option>
-                            <option value="Resumo">Resumo</option>
-                            <option value="Tese">Tese</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <input class="form-control form-control-sm" id="orientadorInput" type="text" placeholder="Buscar por orientador" style="width: 250px;">
+                                        // Agregar la opción al select
+                                        select_ano.add(opcion);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <div class="col-sm-3 col-form-label">
+                                Buscar por semestre:
+                            </div>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-sm" id="semestreInput" style="width: 250px;">
+                                    <option value="">Todos</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <div class="col-sm-3 col-form-label">
+                                Buscar por palavra chave:
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control form-control-sm" id="keywordsInput" type="text" style="width: 250px;">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
                 <table id="myTable" class="table table-hover">
                     <thead>
                     <tr>
-                        <th>
-                        </th>
-                        <th>
-                            <input class="form-control form-control-sm" id="temaInput" type="text" placeholder="Buscar por título">
-                        </th>
-                        <th>
-                            <input class="form-control form-control-sm" id="estudanteInput" type="text" placeholder="Buscar por autor">
-                        </th>
-                        <th>
-                            <input class="form-control form-control-sm" id="keywordsInput" type="text" placeholder="Buscar por palavra chave">
-                        </th>
-                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-                        </th>
-                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                    <tr>
                         <th class="table-success text-center">Data</th>
-                        <th class="table-success text-center">Tema</th>
-                        <th class="table-success text-center">Estudante</th>
+                        <th class="table-success text-center">Título</th>
+                        <th class="table-success text-center">Autor</th>
                         <th class="table-success text-center">Palavras chaves</th>
                         <th class="table-success text-center" style="display: none;">Semestre</th>
                         <th class="table-success text-center" style="display: none;">Ano</th>

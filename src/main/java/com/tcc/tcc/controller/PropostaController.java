@@ -101,6 +101,7 @@ public class PropostaController {
         proposta.setEstudante(usuarioLogueado);
 
         proposta.setData(LocalDate.now());
+        proposta.setCadastrada(false);
         propostaRepository.save(proposta);
         msg.addFlashAttribute("sucesso", "Proposta cadastrada.");
 
@@ -121,6 +122,7 @@ public class PropostaController {
         proposta.setEstudante(usuarioLogueado);
         proposta.setIdeia(ideia);
         proposta.setData(LocalDate.now());
+        proposta.setCadastrada(false);
         ideia.setReservada(true);
         propostaRepository.save(proposta);
         msg.addFlashAttribute("sucesso", "Proposta cadastrada.");

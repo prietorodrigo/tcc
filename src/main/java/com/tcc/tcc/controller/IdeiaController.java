@@ -55,9 +55,9 @@ public class IdeiaController {
         String role = authentication.getAuthorities().iterator().next().getAuthority();
         List<Ideia> ideias = null;
         // Filtrar las ideias según el rol del usuario
-        if (role.equals("ROLE_ADMIN")) {
+        if (role.equals("ROLE_ADMIN") || role.equals("ROLE_ORIENTADOR")) {
             ideias = ideiaRepository.findAll();
-        } else if (role.equals("ROLE_ESTUDIANTE") || role.equals("ROLE_ORIENTADOR")) {
+        } else if (role.equals("ROLE_ESTUDIANTE")) {
             ideias = ideiaRepository.findIdeiasByReservada(false);
         }
         mv.addObject("ideias", ideias);

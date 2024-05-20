@@ -48,40 +48,44 @@
                             <td th:text="${#temporals.format(data, 'dd/MM/yyyy')}"></td>
                         </tr>
                         <tr>
-                            <th>Semestre</th>
-                            <td th:text="${semestre}"></td>
-                        </tr>
-                        <tr>
-                            <th>Ano</th>
-                            <td th:text="${ano}"></td>
-                        </tr>
-                        <tr>
                             <th>Gênero acadêmico</th>
                             <td th:text="${tipo}"></td>
+                        </tr>
+                        <tr>
+                            <th>Título</th>
+                            <td th:text="${proposta.tema}"></td>
+                        </tr>
+                        <tr>
+                            <th>Autor</th>
+                            <td th:text="${proposta.estudante.name}"></td>
+                        </tr>
+                        <tr>
+                            <th>Orientador</th>
+                            <td><a th:href="${proposta.orientador.lattes}" target="_blank" th:text="${proposta.orientador.name}"></a></td>
                         </tr>
                         <tr>
                             <th>Coorientador</th>
                             <td th:text="${coorientador}"></td>
                         </tr>
                         <tr>
+                            <th>Banca</th>
+                            <td th:text="${banca}"></td>
+                        </tr>
+                        <tr>
                             <th>Resumo</th>
                             <td th:text="${resumo}"></td>
                         </tr>
                         <tr>
-                            <th>Arquivo</th>
-                            <td><a th:href="@{/pdf/{pdf}(pdf=${pdf})}" target="_blank" th:text="${pdf}"></a></td>
-                        </tr>
-                        <tr>
-                            <th>Apresentações</th>
-                            <td th:text="${apresentacoes}"></td>
+                            <th>Abstract</th>
+                            <td th:text="${abstractt}"></td>
                         </tr>
                         <tr>
                             <th>Palavras chaves</th>
                             <td th:text="${palavrasChaves}"></td>
                         </tr>
                         <tr>
-                            <th>Título</th>
-                            <td th:text="${proposta.tema}"></td>
+                            <th>Idioma</th>
+                            <td th:text="${idioma}"></td>
                         </tr>
                         <tr>
                             <th>Área</th>
@@ -92,20 +96,16 @@
                             <td th:text="${proposta.curso.nome}"></td>
                         </tr>
                         <tr>
-                            <th>Autor</th>
-                            <td th:text="${proposta.estudante.name}"></td>
-                        </tr>
-                        <tr>
-                            <th>Orientador</th>
-                            <td th:text="${proposta.orientador.name}"></td>
-                        </tr>
-                        <tr>
-                            <th>Banca</th>
-                            <td th:text="${banca}"></td>
+                            <th>Apresentações</th>
+                            <td th:text="${apresentacoes}"></td>
                         </tr>
                         <tr>
                             <th>URL</th>
                             <td><a th:href="${url}" target="_blank" th:text="${url}"></a></td>
+                        </tr>
+                        <tr>
+                            <th>Arquivo</th>
+                            <td><a th:href="@{/pdf/{pdf}(pdf=${pdf})}" target="_blank" th:text="${pdf}"></a></td>
                         </tr>
                     </table>
                 </div>

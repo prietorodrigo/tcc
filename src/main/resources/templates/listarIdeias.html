@@ -42,20 +42,57 @@
                 <br>
                 <div class="d-flex justify-content-center" style="min-height: 75vh;">
                     <div class="col-md-8">
-                        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="d-flex gap-2 mb-3 justify-content-md-end">
+                        <div th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}" class="d-flex gap-2 mb-3 justify-content-md-end">
                             <a class="btn btn-outline-success btn-sm" href="/novaIdeia">
                                 <i class="bi bi-plus-square"></i>
                                 Nova ideia
                             </a>
                         </div>
-                        <div class="card" th:each="ideia : ${ideias}" style="margin-bottom: 20px;">
+
+                        <div th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}" class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="true" data-bs-toggle="tab" href="#livres">Livres</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#reservadas">Reservadas</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="tab-pane active" id="livres">
+                                    <div class="card" th:each="ideia : ${ideias}" th:unless="${ideia.reservada}" style="margin-bottom: 20px;">
+                                        <div class="card-header" th:text="${'Publicado em ' + ideia.data}"></div>
+                                        <div class="card-body">
+                                            <h5 class="card-title" th:text="${'Tema: ' + ideia.tema}"></h5>
+                                            <p class="card-text" th:text="${'Descrição: ' + ideia.descricao}"></p>
+                                            <a th:if="${not #authorization.expression('hasRole(''ROLE_ORIENTADOR'')')}" th:href="@{/novaPropostaIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-success"><i class="bi bi-clipboard-check" title="Reservar"></i> Reservar</a>
+                                            <a th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
+                                            <a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="reservadas">
+                                    <div class="card" th:each="ideia : ${ideias}" th:if="${ideia.reservada}" style="margin-bottom: 20px;">
+                                        <div class="card-header" th:text="${'Publicado em ' + ideia.data}"></div>
+                                        <div class="card-body">
+                                            <h5 class="card-title" th:text="${'Tema: ' + ideia.tema}"></h5>
+                                            <p class="card-text" th:text="${'Descrição: ' + ideia.descricao}"></p>
+                                            <a th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
+                                            <a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${#authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}" class="card" th:each="ideia : ${ideias}" style="margin-bottom: 20px;">
                             <div class="card-header" th:text="${'Publicado em ' + ideia.data}"></div>
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${'Tema: ' + ideia.tema}"></h5>
                                 <p class="card-text" th:text="${'Descrição: ' + ideia.descricao}"></p>
-                                <a th:if="${not #authorization.expression('hasRole(''ROLE_ORIENTADOR'')')}" th:href="@{/novaPropostaIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-success"><i class="bi bi-clipboard-check" title="Reservar"></i> Reservar</a>
-                                <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
-                                <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                <a th:href="@{/novaPropostaIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-success"><i class="bi bi-clipboard-check" title="Reservar"></i> Reservar</a>
                             </div>
                         </div>
                     </div>

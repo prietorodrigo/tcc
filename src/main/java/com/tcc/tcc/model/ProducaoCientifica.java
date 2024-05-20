@@ -28,6 +28,11 @@ public class ProducaoCientifica {
     @Lob
     private String resumo;
 
+    @Lob
+    private String abstractt;
+
+    private String idioma;
+
     private String pdf;
 
     @Lob
@@ -95,6 +100,22 @@ public class ProducaoCientifica {
 
     public void setResumo(String resumo) {
         this.resumo = resumo;
+    }
+
+    public String getAbstractt() {
+        return abstractt;
+    }
+
+    public void setAbstractt(String abstractt) {
+        this.abstractt = abstractt;
+    }
+
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
     }
 
     public String getPdf() {

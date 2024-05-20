@@ -21,6 +21,7 @@ public class UserDto {
     @NotEmpty(groups = EditValidation.class)
     private String matricula;
     private String siape;
+    private String lattes;
     @NotEmpty(message = "Role should not be empty", groups = EditValidation.class)
     private Set<String> roleName;
 
@@ -86,6 +87,14 @@ public class UserDto {
 
     public void setSiape(String siape) {
         this.siape = siape;
+    }
+
+    public String getLattes() {
+        return lattes;
+    }
+
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
     }
 
     public Set<String> getRoleName() {

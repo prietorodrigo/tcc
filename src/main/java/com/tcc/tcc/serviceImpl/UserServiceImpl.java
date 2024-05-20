@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService, InitializingBean {
             user.setFoto(userDto.getFoto());
             user.setMatricula(userDto.getMatricula());
             user.setSiape(userDto.getSiape());
+            user.setLattes(userDto.getLattes());
             Set<UserRole> userRoles = assignRoles(userDto.getRoleName(), user);
             user.setUserRoles(userRoles);
 
@@ -127,6 +128,7 @@ public class UserServiceImpl implements UserService, InitializingBean {
         userDto.setEmail(user.getEmail());
         userDto.setMatricula(user.getMatricula());
         userDto.setSiape(user.getSiape());
+        userDto.setLattes(user.getLattes());
         Set<String> roleNames = user.getUserRoles().stream()
                 .map(userRole -> userRole.getRole().getName())
                 .collect(Collectors.toSet());

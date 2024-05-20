@@ -74,6 +74,11 @@
                                 <input class="form-control form-control-sm" id="siape" name="siape" type="text" th:value="*{siape}"/>
                                 <span th:if="${#fields.hasErrors('siape')}" th:errors="*{siape}"></span>
                             </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Currículo Lattes:</span>
+                                <input class="form-control form-control-sm" id="lattes" name="lattes" type="text" th:value="*{lattes}"/>
+                                <span th:if="${#fields.hasErrors('lattes')}" th:errors="*{lattes}"></span>
+                            </div>
                             <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
                     </div>
