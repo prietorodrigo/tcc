@@ -45,7 +45,7 @@
                     <div class="col-md-6">
                         <form th:action="@{/listarUserRole/} + ${id}" method="post">
                             <div class="input-group mb-3">
-                                <span class="input-group-text">Adicionar rol</span>
+                                <span class="input-group-text">Adicionar papel</span>
                                 <select class="form-control form-control-sm" name="roles" id="roles">
                                     <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                                 </select>

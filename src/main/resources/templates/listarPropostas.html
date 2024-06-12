@@ -63,10 +63,10 @@
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="true" data-bs-toggle="tab" href="#ativas">Ativas</a>
+                                        <a class="nav-link active" aria-current="true" data-bs-toggle="tab" href="#ativas">Pendentes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#finalizadas">Finalizadas</a>
+                                        <a class="nav-link" data-bs-toggle="tab" href="#finalizadas">Concluídas</a>
                                     </li>
                                 </ul>
                             </div>
@@ -84,7 +84,7 @@
                                             <li class="list-group-item" th:text="${'Curso: ' + proposta.curso.nome}"></li>
                                             <li class="list-group-item" th:text="${'Área: ' + proposta.area.nome}"></li>
                                         </ul>
-                                        <div class="card-body" style="display: flex; justify-content: space-between;">
+                                        <div class="card-body" style="text-align: right">
                                             <a th:href="@{/editarProposta/{id} (id=${proposta.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i> Editar</a>
                                             <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/novaProducao/{id} (id=${proposta.id})}" class="btn btn-outline-success" title="Gerar produção científica"><i class="bi bi-journal-check"></i> Cadastrar</a>
                                             <a th:if="${not #authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}" th:unless="${proposta.aceitada}" th:href="@{/excluirProposta/{id} (id=${proposta.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja rejeitar esta Proposta?');" title="Rejeitar"><i class="bi bi-hand-thumbs-down"></i> Rejeitar</a>
@@ -110,7 +110,7 @@
                                             <li class="list-group-item" th:text="${'Curso: ' + proposta.curso.nome}"></li>
                                             <li class="list-group-item" th:text="${'Área: ' + proposta.area.nome}"></li>
                                         </ul>
-                                        <div class="card-body" style="display: flex; justify-content: space-between;">
+                                        <div class="card-body" style="text-align: right">
                                             <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/editarProposta/{id} (id=${proposta.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i> Editar</a>
                                         </div>
                                     </div>

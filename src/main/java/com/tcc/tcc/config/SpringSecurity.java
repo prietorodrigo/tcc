@@ -59,6 +59,7 @@ public class SpringSecurity {
                                 .requestMatchers("/excluirProducao/**").hasRole("ADMIN")
                                 .requestMatchers("/vermaisProducao/**").permitAll()
                                 .requestMatchers("/pdf/**").permitAll()
+                                .requestMatchers("/img/**").permitAll()
                                 .requestMatchers("/novaIdeia").hasAnyRole("ADMIN", "ORIENTADOR")
                                 .requestMatchers("/listarIdeias").hasAnyRole("ADMIN", "ORIENTADOR", "ESTUDIANTE")
                                 .requestMatchers("/editarIdeia/**").hasAnyRole("ADMIN", "ORIENTADOR")

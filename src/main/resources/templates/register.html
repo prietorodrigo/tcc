@@ -97,19 +97,20 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Currículo Lattes:</span>
-                                <input class="form-control form-control-sm" id="lattes" name="lattes" placeholder="Digite a URL do Currículo Lattes" th:field="*{lattes}" type="text"/>
+                                <input class="form-control form-control-sm" id="lattes" name="lattes" placeholder="Digite a URL do Currículo Lattes (só orientadores)" th:field="*{lattes}" type="text"/>
                                 <p th:errors="*{lattes}" th:if="${#fields.hasErrors('lattes')}"></p>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Tipo de Usuário:</span>
                                 <select class="form-control form-control-sm" id="roleName" name="roleName" th:field="*{roleName}">
                                     <option value="ROLE_ADMIN">Administrador</option>
-                                    <option value="ROLE_ESTUDIANTE">Estudiante</option>
+                                    <option value="ROLE_ESTUDIANTE">Estudante</option>
                                     <option value="ROLE_ORIENTADOR">Orientador</option>
                                     <!-- Otros roles si es necesario -->
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                            <button type="reset" class="btn btn-primary">Limpar</button>
                         </form>
                     </div>
                 </div>

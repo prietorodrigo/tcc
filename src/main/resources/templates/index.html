@@ -37,24 +37,23 @@
             <th:block th:if="${#authorization.expression('hasAnyRole(''ROLE_ESTUDIANTE'', ''ROLE_ADMIN'', ''ROLE_ORIENTADOR'')')}" th:include="menu"></th:block>
             <div class="container">
                 <nav th:if="${not #authorization.expression('isAuthenticated()')}" style="text-align: right">
-                    <a class="icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" aria-current="page" th:href="@{/login}">
+                    <a class="btn btn-outline-success icon-link icon-link-hover link-underline-opacity-25" aria-current="page" th:href="@{/login}">
                         Login
                         <i class="bi bi-box-arrow-in-right"></i>
                     </a>
                 </nav>
                 <div class="col-lg-8 mx-auto p-4 py-md-5">
-                    <main>
+                    <main style="text-align: center">
+                        <div class="row g-5">
+                            <img src="/img/wordcloud.png">
+                        </div>
+                        <div class="col-3 col-md-2 mb-5"></div>
                         <h1 class="text-body-emphasis">Bem-vindo ao Sistema de Gestão de Produção Científica</h1>
-                        <p class="fs-5 col-md-8">Plataforma web que permite o gerenciamento, a busca e a visualização da produção científica,
-                            bem como a facilitação do processo seletivo de temas e orientadores de TCC no contexto do Instituto Federal de
-                            Educação, Ciência e Tecnologia Sul-riograndense (IFSul) Campus Santana do Livramento.</p>
+                        <p class="fs-4">Plataforma web que permite o gerenciamento, a busca e a visualização da produção científica,
+                        bem como a facilitação do processo seletivo de temas e orientadores de TCC no contexto do Instituto Federal de
+                        Educação, Ciência e Tecnologia Sul-riograndense (IFSul) Campus Santana do Livramento.</p>
                         <div class="mb-5">
                             <a href="/listarProducoes" class="btn btn-primary btn-lg px-4">Produções Científicas</a>
-                        </div>
-                        <hr class="col-3 col-md-2 mb-5">
-                        <div class="row g-5">
-                            <h2 class="text-body-emphasis">Nuvem de palavras</h2>
-
                         </div>
                     </main>
                 </div>

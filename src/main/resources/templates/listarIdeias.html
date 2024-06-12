@@ -67,9 +67,11 @@
                                         <div class="card-body">
                                             <h5 class="card-title" th:text="${'Tema: ' + ideia.tema}"></h5>
                                             <p class="card-text" th:text="${'Descrição: ' + ideia.descricao}"></p>
-                                            <a th:if="${not #authorization.expression('hasRole(''ROLE_ORIENTADOR'')')}" th:href="@{/novaPropostaIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-success"><i class="bi bi-clipboard-check" title="Reservar"></i> Reservar</a>
-                                            <a th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
-                                            <a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                            <div style="text-align: right">
+                                                <a th:if="${not #authorization.expression('hasRole(''ROLE_ORIENTADOR'')')}" th:href="@{/novaPropostaIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-success"><i class="bi bi-clipboard-check" title="Reservar"></i> Reservar</a>
+                                                <a th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
+                                                <a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -79,8 +81,10 @@
                                         <div class="card-body">
                                             <h5 class="card-title" th:text="${'Tema: ' + ideia.tema}"></h5>
                                             <p class="card-text" th:text="${'Descrição: ' + ideia.descricao}"></p>
-                                            <a th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
-                                            <a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                            <div style="text-align: right">
+                                                <a th:href="@{/editarIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-primary"><i class="bi bi-pencil-square" title="Editar"></i> Editar</a>
+                                                <a th:href="@{/excluirIdeia/{id} (id=${ideia.id})}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir esta ideia?');"><i class="bi bi-trash" title="Excluir"></i> Excluir</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

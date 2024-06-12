@@ -113,7 +113,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Apresentações:</span>
-                                <textarea class="form-control form-control-sm" id="apresentacoes" name="apresentacoes" placeholder="Digite as apresentações acadêmicas relacionadas com a produção científica"></textarea>
+                                <textarea class="form-control form-control-sm" id="apresentacoes" name="apresentacoes" placeholder="Digite o nome do evento acadêmico onde a produção científica foi apresentada. Ex. SEMABI, Gramado Summit, IT Forum Expo"></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Palavras chaves:</span>
@@ -147,7 +147,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">URL:</span>
-                                <input type="text" class="form-control form-control-sm" id="url" name="url" placeholder="Digite a URL do sistema ou do código no GitHub">
+                                <input type="text" class="form-control form-control-sm" id="url" name="url" placeholder="Digite a URL do sistema ou do código no GitHub (somente para produções do curso de TADS ou Informática para Internet)">
                             </div>
                             <script>
                                     function concatenateKeywords() {
@@ -168,7 +168,8 @@
                                       document.getElementById("banca").value = bancaConcatenada;
                                     }
                             </script>
-                            <button type="submit" class="btn btn-primary" onclick="concatenateKeywords(); concatenateBanca()">Enviar</button>
+                            <button type="submit" class="btn btn-success" onclick="concatenateKeywords(); concatenateBanca()">Cadastrar</button>
+                            <button type="reset" class="btn btn-primary">Limpar</button>
                         </form>
                     </div>
                 </div>
