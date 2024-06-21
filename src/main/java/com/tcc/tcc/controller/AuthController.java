@@ -84,6 +84,9 @@ public class AuthController {
                 Path caminho = Paths.get("./src/main/resources/static/img/"+foto.getOriginalFilename());
                 Files.write(caminho, bytes);
                 user.setFoto(foto.getOriginalFilename());
+            } else {
+                // Si no se seleccionó ninguna foto, establecer la imagen por defecto
+                user.setFoto("user.png");
             }
         } catch (IOException e) {
             System.out.println("Erro imagem");
@@ -160,6 +163,18 @@ public class AuthController {
         existingUser.setMatricula(userDto.getMatricula());
         existingUser.setSiape(userDto.getSiape());
         existingUser.setLattes(userDto.getLattes());
+        existingUser.setFoto(userDto.getFoto());
+
+        if (foto != null && !foto.isEmpty()) {
+            try {
+                byte[] bytes = foto.getBytes();
+                Path caminho = Paths.get("./src/main/resources/static/img/" + foto.getOriginalFilename());
+                Files.write(caminho, bytes);
+                existingUser.setFoto(foto.getOriginalFilename());
+            } catch (IOException e) {
+                System.out.println("Erro imagem: " + e.getMessage());
+            }
+        }
 
         // Guardar los cambios en la base de datos
         userService.updateUser(existingUser);
