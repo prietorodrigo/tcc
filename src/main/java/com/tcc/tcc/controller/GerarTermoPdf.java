@@ -70,31 +70,30 @@ public class GerarTermoPdf extends AbstractPdfView {
         document.add(title);
 
         Paragraph content = new Paragraph();
-        content.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
+        content.setFont(FontFactory.getFont(FontFactory.HELVETICA, 12));
         content.add("\n\nEu, " + proposta.getEstudante().getName() + ", matrícula " + proposta.getEstudante().getMatricula()
                 + ", aluno(a) do Curso de " + proposta.getCurso().getNome() + ", solicito a " +
                 "orientação do(a) Professor(a) " + proposta.getOrientador().getName() + " para o desenvolvimento do " +
                 "Trabalho de Conclusão de Curso, com área/tema previsto " +
-                proposta.getArea().getNome()+ ", a ser desenvolvido no âmbito das disciplinas " +
-                "de "+ proposta.getCurso().getDisciplinastcc() + ". Comprometo-me a ser assíduo às " +
-                "orientações e compromissos firmados com meu orientador(a) bem como à cumprir as " +
-                "regulamentações e prazos previstos pelo Regulamento de Trabalho de Conclusão de Curso e " +
-                "pelos Planos de Ensino das disciplinas de "+ proposta.getCurso().getDisciplinastcc() +".");
+                proposta.getArea().getNome()+". Comprometo-me a ser assíduo às " +
+                "orientações e compromissos firmados com meu orientador(a), bem como participar de todas as atividades " +
+                "acadêmicas propostas e cumprir as normas e prazos previstos pelo Regulamento de Trabalho de Conclusão de Curso. " +
+                "Além disso, estou ciente do limite de até três semestres para concluir o TCC, " +
+                "podendo o orientador revogar o termo, caso exceda esse prazo.");
         content.setAlignment(Element.ALIGN_JUSTIFIED);
         document.add(content);
 
         Paragraph assinatura = new Paragraph();
-        assinatura.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
+        assinatura.setFont(FontFactory.getFont(FontFactory.HELVETICA, 12));
         assinatura.add("\n\n\n_____________________________________________\nAssinatura do(a) Aluno(a)");
         assinatura.setAlignment(Element.ALIGN_RIGHT);
         document.add(assinatura);
 
         Paragraph content2 = new Paragraph();
-        content2.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
+        content2.setFont(FontFactory.getFont(FontFactory.HELVETICA, 12));
         content2.add("\n\nEu, " + proposta.getOrientador().getName() + ", SIAPE " + proposta.getOrientador().getSiape() + ", Professor(a) do Curso de " +
                 proposta.getCurso().getNome() + ", me comprometo a orientar o Trabalho " +
-                "de Conclusão de Curso do(a) aluno(a) " + proposta.getEstudante().getName() + ", a ser desenvolvido " +
-                "no âmbito das disciplinas de " + proposta.getCurso().getDisciplinastcc() +".");
+                "de Conclusão de Curso do(a) aluno(a) " + proposta.getEstudante().getName() + ".");
         content2.setAlignment(Element.ALIGN_JUSTIFIED);
         document.add(content2);
 
@@ -109,24 +108,11 @@ public class GerarTermoPdf extends AbstractPdfView {
 
         // Agregar la fecha formateada al párrafo
         Paragraph assinatura2 = new Paragraph();
-        assinatura2.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
+        assinatura2.setFont(FontFactory.getFont(FontFactory.HELVETICA, 12));
         assinatura2.add("\n\n\n_____________________________________________\nAssinatura do(a) Professor(a) Orientador(a)");
         assinatura2.add("\n\n\nSant’Ana do Livramento, " + fechaFormateada);
         assinatura2.setAlignment(Element.ALIGN_RIGHT);
         document.add(assinatura2);
-
-        Paragraph subtitulo = new Paragraph("\n\nPasso a passo:");
-        subtitulo.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD));
-        document.add(subtitulo);
-
-        Paragraph content3 = new Paragraph();
-        content3.setFont(FontFactory.getFont(FontFactory.HELVETICA, 11));
-        content3.add("Aluno(a) preenche o formulário com seus dados.");
-        content3.add("\nAluno(a) encaminha o formulário via e-mail para o(a) professor(a) orientador(a).");
-        content3.add("\nProfessor(a) orientador(a) preenche os seus dados.");
-        content3.add("\nProfessor(a) orientador(a) encaminha o documento devidamente preenchido e com todas as assinaturas via e-mail para a coordenação de curso.");
-        content3.add("\nAluno(a) encaminha o formulário via moodle para professor de Práticas I.");
-        document.add(content3);
 
         // Cierra el documento
         document.close();

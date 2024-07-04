@@ -46,10 +46,17 @@
                         <form th:action="@{/listarUsuariosCursos/} + ${id}" method="post">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Curso</span>
-                                <select class="form-control form-control-sm" name="cursos" id="cursos">
+                                <select class="form-control form-control-sm" name="cursos" id="cursos" required>
                                     <option value="">Selecione um curso</option>
                                     <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('cursos');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Ano</span>

@@ -60,7 +60,7 @@
                                         <th scope="col">Papel</th>
                                         <th scope="col">Curso</th>
                                         <th scope="col">Foto</th>
-                                        <th scope="col" colspan="3">Ações</th>
+                                        <th scope="col" colspan="4">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
@@ -84,6 +84,7 @@
                                         </td>
                                         <td><img th:src="@{/foto/{foto}(foto=${user.foto})}" width="50px"/></td>
                                         <td><a th:href="@{/editUser/{id} (id=${user.id})}" class="btn btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a></td>
+                                        <td><a th:href="@{/deleteUser/{id} (id=${user.id})}" class="btn btn-outline-primary" onclick="return confirm('Tem certeza que deseja excluir este usuário?');" title="Excluir"><i class="bi bi-trash"></i></a></td>
                                         <td><a th:href="@{/listarUserRole/{id} (id=${user.id})}" class="btn btn-outline-primary" title="Papéis"><i class="bi bi-person-gear"></i></a></td>
                                         <td><a th:href="@{/listarUsuariosCursos/{id} (id=${user.id})}" class="btn btn-outline-primary" title="Cursos"><i class="bi bi-mortarboard"></i></a></td>
                                     </tr>

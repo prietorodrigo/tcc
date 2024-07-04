@@ -42,23 +42,23 @@
         </div>
         <div class="container d-flex flex-wrap" style="margin-bottom: 10px;">
             <ul class="nav me-auto" style="font-size: 10px;">
-                <li class="nav-item hover-on-li-1"><a href="#"
+                <li class="nav-item hover-on-li-1"><a href="#conteudo"
                         class="nav-link px-2 nav-link-sm text-light">Ir para
                         o conteúdo <span class="badge text-bg-light">1</span></a></li>
-                <li class="nav-item hover-on-li-1"><a href="#"
+                <li class="nav-item hover-on-li-1"><a href="#sidebarMenu"
                         class="nav-link px-2 nav-link-sm text-light">Ir para
                         o menu <span class="badge text-bg-light">2</span></a></li>
-                <li class="nav-item hover-on-li-1"><a href="#"
+                <li class="nav-item hover-on-li-1"><a href="#button-addon2"
                         class="nav-link px-2 nav-link-sm text-light">Ir para
                         a busca <span class="badge text-bg-light">3</span></a></li>
-                <li class="nav-item hover-on-li-1"><a href="#"
+                <li class="nav-item hover-on-li-1"><a href="#rodape"
                         class="nav-link px-2 nav-link-sm text-light">Ir para
                         o rodapé <span class="badge text-bg-light">4</span></a></li>
             </ul>
             <ul class="nav border-bottom" style="font-size: 11px;">
                 <li class="nav-item hover-on-li"><a href="http://www.santana.ifsul.edu.br/acessibilidade"
                         class="nav-link px-2 text-light">ACESSIBILIDADE</a></li>
-                <li class="nav-item hover-on-li"><a href="http://www.santana.ifsul.edu.br/#"
+                <li class="nav-item hover-on-li"><a id="highContrastLink" href="#"
                         class="nav-link px-2 text-light">ALTO CONTRASTE</a></li>
                 <li class="nav-item hover-on-li"><a href="http://www.santana.ifsul.edu.br/mapa-do-site"
                         class="nav-link px-2 text-light">MAPA DO SITE</a></li>
@@ -138,4 +138,11 @@
                 </li>
             </ul>
         </div>
+        <script>
+            document.getElementById('highContrastLink').addEventListener('click', function() {
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+                // Puedes agregar más estilos aquí para lograr el efecto de alto contraste
+            });
+        </script>
     </header>

@@ -47,17 +47,17 @@
                         <form th:action="@{/editUser/{id}(id=${user.id})}" method="post" enctype="multipart/form-data" th:object="${user}">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Nome:</span>
-                                <input class="form-control form-control-sm" id="firstName" name="firstName" type="text" th:value="*{firstName}"/>
+                                <input class="form-control form-control-sm" id="firstName" name="firstName" type="text" th:value="*{firstName}" required/>
                                 <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Sobrenome:</span>
-                                <input class="form-control form-control-sm" id="lastName" name="lastName" type="text" th:value="*{lastName}"/>
+                                <input class="form-control form-control-sm" id="lastName" name="lastName" type="text" th:value="*{lastName}" required/>
                                 <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">E-mail:</span>
-                                <input class="form-control form-control-sm" id="email" name="email" type="email" th:value="*{email}"/>
+                                <input class="form-control form-control-sm" id="email" name="email" type="email" th:value="*{email}" required/>
                                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                             </div>
                             <div class="input-group mb-3">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Matrícula:</span>
-                                <input class="form-control form-control-sm" id="matricula" name="matricula" type="text" th:value="*{matricula}"/>
+                                <input class="form-control form-control-sm" id="matricula" name="matricula" type="text" th:value="*{matricula}" required/>
                                 <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}"></span>
                             </div>
                             <div class="input-group mb-3">

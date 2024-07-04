@@ -46,6 +46,10 @@
                     <div>
                         <form method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
+                                <span class="input-group-text">Data:</span>
+                                <input type="date" id="data" name="data" class="form-control form-control-sm" th:value="${data}">
+                            </div>
+                            <div class="input-group mb-3">
                                 <span class="input-group-text">Ano:</span>
                                 <select class="form-control form-control-sm" id="ano" name="ano">
                                     <option th:each="year : ${#numbers.sequence(2006, 2100)}"

@@ -12,17 +12,17 @@ public class UserDto {
     private String firstName;
     @NotEmpty(groups = EditValidation.class)
     private String lastName;
-    @NotEmpty(message = "Email should not be empty", groups = EditValidation.class)
+    @NotEmpty(message = "O e-mail não deve estar vazio", groups = EditValidation.class)
     @Email
     private String email;
-    @NotEmpty(message = "Password should not be empty")
+    @NotEmpty(message = "A senha não deve estar vazia")
     private String password;
     private String foto;
     @NotEmpty(groups = EditValidation.class)
     private String matricula;
     private String siape;
     private String lattes;
-    @NotEmpty(message = "Role should not be empty", groups = EditValidation.class)
+    @NotEmpty(message = "O papel não deve estar vazio", groups = EditValidation.class)
     private Set<String> roleName;
 
     public Long getId() {

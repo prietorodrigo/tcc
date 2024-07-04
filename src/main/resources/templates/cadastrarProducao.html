@@ -81,7 +81,8 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Gênero acadêmico-científico:</span>
-                                <select class="form-control form-control-sm" id="tipo" name="tipo">
+                                <select class="form-control form-control-sm" id="tipo" name="tipo" required>
+                                    <option value="">Selecione o gênero</option>
                                     <option value="Artigo científico">Artigo científico</option>
                                     <option value="Dissertação">Dissertação</option>
                                     <option value="Ensaio">Ensaio</option>
@@ -101,7 +102,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Resumo</span>
-                                <textarea class="form-control form-control-sm" id="resumo" name="resumo" placeholder="Digite o resumo da produção científica"></textarea>
+                                <textarea class="form-control form-control-sm" id="resumo" name="resumo" placeholder="Digite o resumo da produção científica" required></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Abstract</span>
@@ -120,19 +121,19 @@
                                 <input type="hidden" id="palavrasChaves" name="palavrasChaves">
                                 <br>
                                 <span class="input-group-text">1:</span>
-                                <input type="text" class="form-control" id="palavraChave1" name="palavraChave1">
+                                <input type="text" class="form-control" id="palavraChave1" name="palavraChave1" required>
                                 <span class="input-group-text">2:</span>
-                                <input type="text" class="form-control" id="palavraChave2" name="palavraChave2">
+                                <input type="text" class="form-control" id="palavraChave2" name="palavraChave2" required>
                                 <span class="input-group-text">3:</span>
-                                <input type="text" class="form-control" id="palavraChave3" name="palavraChave3">
+                                <input type="text" class="form-control" id="palavraChave3" name="palavraChave3" required>
                                 <span class="input-group-text">4:</span>
-                                <input type="text" class="form-control" id="palavraChave4" name="palavraChave4">
+                                <input type="text" class="form-control" id="palavraChave4" name="palavraChave4" required>
                                 <span class="input-group-text">5:</span>
-                                <input type="text" class="form-control" id="palavraChave5" name="palavraChave5">
+                                <input type="text" class="form-control" id="palavraChave5" name="palavraChave5" required>
                             </div>
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="pdf">PDF:</label>
-                                <input type="file" class="form-control form-control-sm" name="file" id="pdf" multiple>
+                                <input type="file" class="form-control form-control-sm" name="file" id="pdf" multiple required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Banca:</span>

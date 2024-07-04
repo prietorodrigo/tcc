@@ -2,7 +2,6 @@ package com.tcc.tcc.controller;
 
 import com.tcc.tcc.dto.UserDto;
 import com.tcc.tcc.model.Curso;
-import com.tcc.tcc.model.Role;
 import com.tcc.tcc.model.User;
 import com.tcc.tcc.repository.RoleRepository;
 import com.tcc.tcc.repository.UserRepository;
@@ -24,7 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,13 +34,15 @@ public class AuthController {
 
     @Autowired CursoService cursoService;
 
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     RoleRepository roleRepository;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("index")
@@ -67,6 +67,7 @@ public class AuthController {
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto user,
                                BindingResult result,
+                               RedirectAttributes msg,
                                Model model,
                                @RequestParam("file") MultipartFile foto){
         User existing = userService.findByEmail(user.getEmail());
@@ -75,6 +76,7 @@ public class AuthController {
         }
         if (result.hasErrors()) {
             model.addAttribute("user", user);
+            msg.addFlashAttribute("erro", "Erro ao cadastrar. Por favor, preencha todos os campos");
             return "register";
         }
 
@@ -93,6 +95,7 @@ public class AuthController {
         }
 
         userService.saveUser(user);
+        msg.addFlashAttribute("sucesso", "Usuário cadastrado.");
         return "redirect:/register?success";
     }
 
@@ -180,6 +183,12 @@ public class AuthController {
         userService.updateUser(existingUser);
 
         msg.addFlashAttribute("success", "Usuário atualizado com sucesso.");
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value="/deleteUser/{id}", method=RequestMethod.GET)
+    public String deleteUser(@PathVariable("id") Long id) {
+        userRepository.deleteById(id);
         return "redirect:/users";
     }
 }

@@ -47,11 +47,11 @@
                         <form method="post">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Tema:</span>
-                                <input type="text" class="form-control form-control-sm" id="tema" name="tema" th:value="${tema}">
+                                <input type="text" class="form-control form-control-sm" id="tema" name="tema" th:value="${tema}" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Descrição:</span>
-                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" th:text="${descricao}"></textarea>
+                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" th:text="${descricao}" required></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Reservada:</span>

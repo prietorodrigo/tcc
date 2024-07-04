@@ -52,39 +52,60 @@
                             <input type="hidden" name="estudante.id" th:value="${proposta.estudante.id}" />
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Orientador:</span>
-                                <select class="form-control form-control-sm" name="orientador" id="orientador">
+                                <select class="form-control form-control-sm" name="orientador" id="orientador" required>
                                     <th:block th:each="orientador : ${orientadores}">
                                         <option th:value="${orientador.id}"
                                                 th:text="${orientador.name}"
                                                 th:selected="${orientador.id == proposta.orientador.id}"></option>
                                     </th:block>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('orientador');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Curso:</span>
-                                <select class="form-control form-control-sm" name="curso" id="curso">
+                                <select class="form-control form-control-sm" name="curso" id="curso" required>
                                     <option th:each="crs : ${curso}"
                                             th:value="${crs.id}"
                                             th:text="${crs.nome}"
                                             th:selected="${crs.id == proposta.curso.id}"></option>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('curso');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Area:</span>
-                                <select class="form-control form-control-sm" name="area" id="area">
+                                <select class="form-control form-control-sm" name="area" id="area" required>
                                     <option th:each="a : ${area}"
                                             th:value="${a.id}"
                                             th:text="${a.nome}"
                                             th:selected="${a.id == proposta.area.id}"></option>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('area');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Tema:</span>
-                                <input type="text" class="form-control form-control-sm" id="tema" name="tema" th:value="${proposta.tema}">
+                                <input type="text" class="form-control form-control-sm" id="tema" name="tema" th:value="${proposta.tema}" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Descrição</span>
-                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" th:text="${proposta.descricao}"></textarea>
+                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" th:text="${proposta.descricao}" required></textarea>
                             </div>
                             <div class="input-group mb-3" th:if="${#authorization.expression('hasRole(''ROLE_ORIENTADOR'') or hasRole(''ROLE_ADMIN'')')}">
                                 <span class="input-group-text">Aceitada pelo orientador:</span>

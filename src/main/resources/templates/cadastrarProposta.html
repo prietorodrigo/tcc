@@ -51,38 +51,59 @@
                         <form method="post">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Orientador:</span>
-                                <select class="form-control form-control-sm" name="orientador" id="orientador">
+                                <select class="form-control form-control-sm" name="orientador" id="orientador" required>
                                     <option value="">Selecione um orientador</option>
                                     <th:block th:each="orientador : ${orientadores}">
                                         <option th:value="${orientador.id}" th:text="${orientador.name}"></option>
                                     </th:block>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('orientador');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Curso:</span>
-                                <select class="form-control form-control-sm" name="curso" id="curso">
+                                <select class="form-control form-control-sm" name="curso" id="curso" required>
                                     <option value="">Selecione um curso</option>
                                     <th:block th:each="curso : ${cursos}">
                                         <option th:value="${curso.id}" th:text="${curso.nome}"></option>
                                     </th:block>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('curso');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Área:</span>
-                                <select class="form-control form-control-sm" name="area" id="area">
+                                <select class="form-control form-control-sm" name="area" id="area" required>
                                     <option value="">Selecione uma área</option>
                                     <th:block th:each="area : ${areas}">
                                         <option th:value="${area.id}" th:text="${area.nome}"></option>
                                     </th:block>
                                 </select>
+                                <script>
+                                    var select = document.getElementById('area');
+                                    var options = Array.from(select.options).slice(1); // Excluir la primera opción
+                                    options.sort((a, b) => a.text.localeCompare(b.text));
+                                    options.forEach(option => select.add(option));
+                                    select.insertBefore(select.options[0], select.options[0]); // Mantener la primera opción en su lugar
+                                </script>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Tema:</span>
-                                <input type="text" class="form-control form-control-sm" id="tema" name="tema" placeholder="Digite o tema">
+                                <input type="text" class="form-control form-control-sm" id="tema" name="tema" placeholder="Digite o tema" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Descrição</span>
-                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" placeholder="Digite a descrição da sua proposta"></textarea>
+                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" placeholder="Digite a descrição da sua proposta" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-success">Cadastrar</button>
                             <button type="reset" class="btn btn-primary">Limpar</button>

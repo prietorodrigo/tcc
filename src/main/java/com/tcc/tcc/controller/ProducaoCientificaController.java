@@ -106,6 +106,7 @@ public class ProducaoCientificaController {
     public ModelAndView editar(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("editarProducao");
         Optional<ProducaoCientifica> producaoCientifica = producaoCientificaRepository.findById(id);
+        mv.addObject("data", producaoCientifica.get().getData());
         mv.addObject("semestre", producaoCientifica.get().getSemestre());
         mv.addObject("ano", producaoCientifica.get().getAno());
         mv.addObject("tipo", producaoCientifica.get().getTipo());
@@ -130,6 +131,7 @@ public class ProducaoCientificaController {
     @RequestMapping(value="/editarProducao/{id}", method=RequestMethod.POST)
     public String editarProducaoBanco(ProducaoCientifica producao, RedirectAttributes msg) {
         ProducaoCientifica producaoExistente = producaoCientificaRepository.findById(producao.getId()).orElse(null);
+        producaoExistente.setData(producao.getData());
         producaoExistente.setSemestre(producao.getSemestre());
         producaoExistente.setAno((producao.getAno()));
         producaoExistente.setTipo(producao.getTipo());

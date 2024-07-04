@@ -33,7 +33,7 @@ public class User {
 
     private String lattes;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles;
 
     @OneToMany(mappedBy = "usuario")
